@@ -2,7 +2,7 @@ Hi There ![](https://user-images.githubusercontent.com/18350557/176309783-078594
 I am Sahaj Saliya
 ====================================================================================================================================
 
-I am Enrolled in ICT Course at PDEU
+I have been Enrolled in ICT Course at PDEU
 -----------------------------------
 
 🎓 I am a student and a tinkerer for Computer Science, Chemistry and Mathematics. I like innovating various things in my surrounding and to implement my ideas through Programming. 👨‍💻 My skillsets include Python3, Linux and elementary level C/C++ and HTML.
