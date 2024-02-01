@@ -34,6 +34,6 @@ I have been Enrolled in ICT Course at PDEU
     <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg" width="32" height="32" alt="GitHub" />
   </a>
   <a href="https://www.linkedin.com/in/sahaj-saliya-6227b4298/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg" width="32" height="32" alt="LinkedIn" />
+    <img src="https://raw.githubusercontent.com/SahajIVVIX-1/Logos/initial/Logos/linkedin.svg?token=GHSAT0AAAAAACNKLRYUU33CFPXXZWZN5XJ2ZN36WBQ" width="32" height="32" alt="LinkedIn" />
   </a>
 </p>
