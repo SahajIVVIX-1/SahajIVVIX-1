@@ -46,10 +46,10 @@
     <img align="left" alt="SahajIVVIX-1 | Linkedin" width="24px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" />
   </a> &nbsp;&nbsp;
   <a href="https://github.com/SahajIVVIX-1">
-    <img align="left" alt="SahajIVVIX-1 | Github" width="28px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/github.png" />
+    <img align="left" alt="SahajIVVIX-1 | Github" width="24px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" />
   </a> &nbsp;&nbsp;
   <a href="https://discord.com/channels/1202887955203751996/1202887955203751999">
-    <img align="left" alt="SahajIVVIX-1 | Discord" width="24px" src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/Instagram.svg" />
+    <img align="left" alt="SahajIVVIX-1 | Discord" width="24px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" />
   </a> &nbsp;&nbsp;
   <a href="mailto:sahajsaliya.59.2015@gmail.com">
     <img align="left" alt="SahajIVVIX-1 | Gmail" width="26px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" />
@@ -60,12 +60,10 @@
 
   # Connect with me<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Handshake.gif" height="34px">
 
-<!--
 
-| [<img src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/Linkedin.svg" alt="Linkedin Logo" width="32">](https://in.linkedin.com/in/TheDudeThatCode) | [<img src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/Twitter.svg" alt="Twitter Logo" width="32">](https://twitter.com/TheDudeThatCode) | [<img src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/Instagram.svg" alt="instagram logo" width="32">](https://www.instagram.com/thedudethatcode/)| [<img src="https://cdn.svgporn.com/logos/github-icon.svg" alt="Github logo" width="34">](https://github.com/TheDudeThatCode) | [<img src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/HackerRank.svg" alt="HackerRank Logo" width="30">](https://www.hackerrank.com/) | [<img src="https://cdn.svgporn.com/logos/stackoverflow-icon.svg" alt="Stackoverflow Logo" width="28">](https://stackoverflow.com/users/13944080/thedudethatcode) | [<img src="https://cdn.svgporn.com/logos/medium.svg" alt="Medium Logo" width="30">](https://medium.com/@shubhamdeepjha) | [<img src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/Gmail.svg" alt="Gmail logo" height="32">](mailto:thedudethatcode@gmail.com)
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" alt="Linkedin Logo" width="32">](https://www.linkedin.com/in/sahaj-saliya-6227b4298/) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" alt="Twitter Logo" width="32">](https://github.com/SahajIVVIX-1) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" alt="instagram logo" width="32">](https://discord.com/channels/1202887955203751996/1202887955203751999)| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" alt="Github logo" width="34">](mailto:sahajsaliya.59.2015@gmail.com) |
+|:---:|:---:|:---:|:---:|
 
--->
 
 <br>
 <!--
