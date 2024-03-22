@@ -42,18 +42,22 @@
 
 ![Dino](https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/dino.gif)
 
-<a href="https://www.linkedin.com/in/sahaj-saliya-6227b4298/">
-    <img align="left" alt="SahajIVVIX-1 | Linkedin" width="24px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" />
-  </a> &nbsp;&nbsp;
-  <a href="https://github.com/SahajIVVIX-1">
-    <img align="left" alt="SahajIVVIX-1 | Github" width="24px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" />
-  </a> &nbsp;&nbsp;
-  <a href="https://discord.com/channels/1202887955203751996/1202887955203751999">
-    <img align="left" alt="SahajIVVIX-1 | Discord" width="24px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" />
-  </a> &nbsp;&nbsp;
-  <a href="mailto:sahajsaliya.59.2015@gmail.com">
-    <img align="left" alt="SahajIVVIX-1 | Gmail" width="26px" src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" />
-  </a>
+# Skills
+
+<p align="left">
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-python.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-c.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-c-programming.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-linux-48.png" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-ubuntu-48.png" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-kali-linux.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-git.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-github.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-replit.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-photoshop.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-adobe-premiere-pro.svg" width="39" height="39" alt="C" />
+ <img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Logos/icons8-adobe-xd.svg" width="39" height="39" alt="C" />
+</p>
   
 <br>
 <br>
@@ -61,37 +65,8 @@
   # Connect with me<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Handshake.gif" height="34px">
 
 
-| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" alt="Linkedin Logo" width="32">](https://www.linkedin.com/in/sahaj-3b-vix/) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" alt="Twitter Logo" width="32">](https://github.com/SahajIVVIX-1) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" alt="instagram logo" width="32">](https://discord.com/channels/1202887955203751996/1202887955203751999)| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" alt="Github logo" width="34">](mailto:sahajsaliya.59.2015@gmail.com) |
-|:---:|:---:|:---:|:---:|
+| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" alt="Linkedin Logo" width="32">](https://www.linkedin.com/in/sahaj-3b-vix/) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" alt="Twitter Logo" width="32">](https://github.com/SahajIVVIX-1) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" alt="instagram logo" width="32">](https://discord.com/channels/1202887955203751996/1202887955203751999)| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" alt="Github logo" width="34">](mailto:sahajsaliya.59.2015@gmail.com) |  [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/New_Replit_Logo.svg" alt="Github logo" width="34">](https://replit.com/@a1sahaj59) |
+|:---:|:---:|:---:|:---:|:---:|
 
 
 <br>
-<!--
-## Skills
-
-<p align="left">
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg" width="36" height="36" alt="C" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/cplusplus-colored.svg" width="36" height="36" alt="C++" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/git-colored.svg" width="36" height="36" alt="Git" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg" width="36" height="36" alt="Python" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" width="36" height="36" alt="HTML5" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg" width="36" height="36" alt="Linux" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-colored.svg" width="36" height="36" alt="Photoshop" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored.svg" width="36" height="36" alt="Illustrator" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/premierepro-colored.svg" width="36" height="36" alt="Premiere Pro" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xd-colored.svg" width="36" height="36" alt="XD" />
-  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg" width="36" height="36" alt="Google Cloud" />
-</p>
-
-## Socials
-
-<p align="left">
-  <a href="https://www.github.com/SahajIVVIX-1" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg" width="32" height="32" alt="GitHub" />
-  </a>
-  <a href="https://www.linkedin.com/in/sahaj-3b-vix/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/SahajIVVIX-1/Logos/initial/Logos/linkedin.svg?token=GHSAT0AAAAAACNKLRYV65GFUNNVMAEXUB7KZN36YWA" width="32" height="32" alt="LinkedIn" />
-  </a>
-</p>
-
--->
