@@ -12,7 +12,7 @@
 
 
 * 🌍 I'm based in Gujarat International Finance Tec-City (GIFT City)
-* 🖥️ See my portfolio at [My Portfolio](http://www.linkedin.com/in/sahaj-saliya-6227b4298/)
+* 🖥️ See my portfolio at [My Portfolio](https://www.linkedin.com/in/sahaj-3b-vix/)
 * ✉️ You can contact me at [My Email](mailto:sahajsaliya.59.2015@gmail.com)
 * 🧠 I'm learning Information and Communication Technology
 * 💬 Ask me about anything [Here](https://github.com/SahajIVVIX-1/SahajIVVIX-1/issues)
