@@ -61,7 +61,7 @@
   # Connect with me<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Handshake.gif" height="34px">
 
 
-| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" alt="Linkedin Logo" width="32">](https://www.linkedin.com/in/sahaj-saliya-6227b4298/) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" alt="Twitter Logo" width="32">](https://github.com/SahajIVVIX-1) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" alt="instagram logo" width="32">](https://discord.com/channels/1202887955203751996/1202887955203751999)| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" alt="Github logo" width="34">](mailto:sahajsaliya.59.2015@gmail.com) |
+| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" alt="Linkedin Logo" width="32">](https://www.linkedin.com/in/sahaj-3b-vix/) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" alt="Twitter Logo" width="32">](https://github.com/SahajIVVIX-1) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" alt="instagram logo" width="32">](https://discord.com/channels/1202887955203751996/1202887955203751999)| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" alt="Github logo" width="34">](mailto:sahajsaliya.59.2015@gmail.com) |
 |:---:|:---:|:---:|:---:|
 
 
@@ -89,7 +89,7 @@
   <a href="https://www.github.com/SahajIVVIX-1" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg" width="32" height="32" alt="GitHub" />
   </a>
-  <a href="https://www.linkedin.com/in/sahaj-saliya-6227b4298/" target="_blank" rel="noreferrer">
+  <a href="https://www.linkedin.com/in/sahaj-3b-vix/" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/SahajIVVIX-1/Logos/initial/Logos/linkedin.svg?token=GHSAT0AAAAAACNKLRYV65GFUNNVMAEXUB7KZN36YWA" width="32" height="32" alt="LinkedIn" />
   </a>
 </p>
