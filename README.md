@@ -12,8 +12,8 @@
 
 
 * 🌍 I'm based in Gujarat International Finance Tec-City (GIFT City)
-* 🖥️ See my portfolio at [My Portfolio](https://www.linkedin.com/in/sahaj-3b-vix/)
-* ✉️ You can contact me at [My Email](mailto:sahajsaliya.59.2015@gmail.com)
+* 🖥️ See my portfolio at [My Portfolio](https://www.linkedin.com/in/sahajs59/)
+* ✉️ You can contact me at [My Email](mailto:sahajs7959@gmail.com)
 * 🧠 I'm learning Information and Communication Technology
 * 💬 Ask me about anything [Here](https://github.com/SahajIVVIX-1/SahajIVVIX-1/issues)
 
@@ -65,7 +65,7 @@
   # Connect with me<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Handshake.gif" height="34px">
 
 
-| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" alt="Linkedin Logo" width="32">](https://www.linkedin.com/in/sahaj-3b-vix/) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" alt="Twitter Logo" width="32">](https://github.com/SahajIVVIX-1) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" alt="instagram logo" width="32">](https://discord.gg/5DqcXXpbuk)| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" alt="Github logo" width="34">](mailto:sahajsaliya.59.2015@gmail.com) |  [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/New_Replit_Logo.svg" alt="Github logo" width="34">](https://replit.com/@a1sahaj59) |
+| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Linkedin.svg" alt="Linkedin Logo" width="32">](https://www.linkedin.com/in/sahajs59/) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Github1.png" alt="Twitter Logo" width="32">](https://github.com/SahajIVVIX-1) | [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Discord.png" alt="instagram logo" width="32">](https://discord.gg/5DqcXXpbuk)| [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/Gmail.svg" alt="Github logo" width="34">](mailto:sahajs7959@gmail.com) |  [<img src="https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/New_Replit_Logo.svg" alt="Github logo" width="34">](https://replit.com/@a1sahaj59) |
 |:---:|:---:|:---:|:---:|:---:|
 
 
