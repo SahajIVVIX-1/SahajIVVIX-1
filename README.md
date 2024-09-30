@@ -39,6 +39,16 @@
 
 
 <br>
+<div style="display: flex; justify-content: space-between;">
+  <div style="flex: 1; text-align: center; margin-right: 20px;">
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SahajIVVIX-1&theme=dark&hide_langs_below=1" />
+  </div>
+  <div style="flex: 1; text-align: center; margin-left: 20px;">
+    <img src="https://github-readme-stats.vercel.app/api?username=SahajIVVIX-1&show_icons=true&theme=dark&line_height=27" alt="SahajIVVIX-1's github stats"/>
+  </div>
+</div>
+
+<br>
 
 ![Dino](https://github.com/SahajIVVIX-1/Logos/blob/initial/Sahaj_SVG's/Assets/dino.gif)
 
