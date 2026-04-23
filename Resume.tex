@@ -1,0 +1,207 @@
+%-------------------------
+% Resume in Latex
+% Author : Sahaj Saliya
+% License : MIT
+%------------------------
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[pdftex]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.375in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeItemNH}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,label={}]}
+\newcommand{\resumeSubHeadingListStartBullets}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+\usepackage{array}
+\makeatletter
+\newcommand\HUGE{\@setfontsize\Huge{38}{47}} 
+\newcolumntype{L}{>{\hb@xt@\z@\bgroup}l<{\hss\egroup}}
+\newcolumntype{C}{>{\centering\arraybackslash}c}
+\newcolumntype{R}{>{\hb@xt@\z@\bgroup\hss}r<{\egroup}}
+\makeatother
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{L@{\extracolsep{\fill}}C@{\extracolsep{\fill}}R}
+  {} & \multirow{2}{*}{\Huge \textbf{Sahaj Saliya}} & {} \\
+  {sahajsaliya.59.2015@gmail.com} &
+  {} &
+  {Github: SahajIVVIX-1} \\
+  {(+91)-9016151812} & {} & {Linkedin: sahajs59} \\
+
+\end{tabular*}
+
+%-----------EDUCATION-----------------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Pandit Deendayal Energy University - PDEU (Formerly PDPU)}{Gandhinagar, GJ}
+      {B.Tech in Information \& Communication Technology (ICT), \textbf{GPA: 8.0/10.0}}{June 2023 -- May 2027}
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------------
+\section{Projects}
+\resumeSubHeadingListStart
+
+% -------------------- Project 1 --------------------
+\resumeSubheading
+    {DCGAN Modernization \& Analytics Pipeline}{GitHub}
+    {Generative AI \& Post-Training Diagnostics}{2026}
+    \resumeItemListStart
+      \resumeItemNH{Implemented a high-stability Generative Adversarial Network (GAN) using 2018-2022 training paradigms including Label Smoothing and D-Dropout to stabilize the Nash Equilibrium between the Generator and Discriminator.}
+      \resumeItemNH{Developed a professional post-training analytics dashboard that automates evaluation through confidence histograms ($D(x)$ vs $D(G(z))$) and real-time visualization of learned edge/texture detectors.}
+      \resumeItemNH{\textbf{Tech Stack:} PyTorch, Torchvision, Python 3, Advanced Convolutions, Latent Space Analytics, Data Visualization.}
+    \resumeItemListEnd
+
+% -------------------- Project 2 --------------------
+\resumeSubheading
+    {SentinelProxy Suite}{GitHub}
+    {Secure Network Gateways · Traffic Intelligence}{2025}
+    \resumeItemListStart
+      \resumeItemNH{Developed an AI-enhanced HTTPS proxy and DNS resolver featuring real-time traffic inspection, role-based access control (RBAC), and dynamic blocklist enforcement.}
+      \resumeItemNH{Automated Windows network orchestration via PowerShell and integrated a modular Node.js backend with SQLite for persistent auditing and logging.}
+      \resumeItemNH{\textbf{Tech Stack:} Node.js, Socket.IO, SQLite, http-proxy, node-forge, PowerShell, JavaScript.}
+    \resumeItemListEnd
+
+% -------------------- Project 3 --------------------
+\resumeSubheading
+    {Microplastic Detection \& Data Management System}{}
+    {Visual Intelligence · Automated Environmental Analysis}{2025}
+    \resumeItemListStart
+      \resumeItemNH{Trained and fine-tuned a \textbf{YOLOv11} object detection model to detect microplastic particles from visual data, optimizing it to classify microplastics while estimating particle size under varying imaging conditions.}
+      \resumeItemNH{\textbf{Tech Stack:} Python, LLM, YOLOv11, PyTorch, OpenCV, CUDA, NumPy, Computer Vision.}
+    \resumeItemListEnd
+
+% -------------------- Project 4 --------------------
+\resumeSubheading
+    {Python Script-Based Projects}{GitHub}
+    {Productivity Automation · Developer-Centric Tooling}{2023 -- 2024}
+    \resumeItemListStart
+      \resumeItemNH{\textbf{Smaran – Smart Desktop Reminder}, a PyQt6-based Windows application featuring animated notifications and advanced scheduling logic for productivity automation.}
+      \resumeItemNH{\textbf{PyEnv Launcher}, a unified graphical interface to manage Python projects, virtual environments (venv/conda), dependency isolation, and Git-based workflows.}
+      \resumeItemNH{\textbf{Digital Hand Cricket Game}, implementing complete gameplay mechanics, scoring rules, and deterministic tie-breaker logic via console-based interaction.} 
+      \resumeItemNH{\textbf{Tech Stack:} Python, PyQt6, JSON, CSV, Virtual Environments, Git, Windows Registry, Console I/O.}
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------EXTRACURRICULARS-----------------
+\section{Involvement}
+\resumeSubHeadingListStartBullets
+
+\resumeSubItem{IEEE Conference Paper Presentations}
+{Presented two IEEE research papers \textbf{on behalf of the author teams} at the \textbf{2nd IEEE Conference on AIMV}, held on 16--17 August 2025. The presentations covered \textit{Deepfake Audio Detection using Deep Learning} and \textit{Intelligent Cognitive Frameworks for Crime Prediction in Smart Cities}. The papers are published on IEEE Xplore (DOI: 10.1109/AIMV66517.2025.11203307 \& DOI: 10.1109/AIMV66517.2025.11203581).}
+
+\resumeSubItem{Hackathon Participation}
+{Participated in the \textbf{Code4Cause Hackathon 2024}, a national-level hackathon held in Delhi, collaborating in a team-based environment to design \& implement technology-driven solutions under strict time constraints.}
+
+\resumeSubItem{Technical Workshop – Vertex AI \& Firebase}
+{Attended a hands-on session by the \textbf{Google Developer Group (GDG) Gandhinagar}, working with \textbf{Vertex AI} to fine-tune a model and generate research insights using the \textbf{Gemini 1.5 Pro} model, while also gaining practical experience with \textbf{Firebase} for application development.}
+
+\resumeSubHeadingListEnd
+
+%--------SKILLS------------
+\section{Skills}
+\resumeSubHeadingListStart
+
+\resumeSubItem{Programming \& Core Tools}
+{Python (Advanced), SQL, MATLAB, NumPy, Pandas, Scikit-Learn}
+
+\resumeSubItem{Machine Learning \& AI}
+{Deep Learning, Reinforcement Learning (RL), Large Language Models (LLMs), EDA, Probability \& Statistics, Linear Algebra, PyTorch}
+
+\resumeSubItem{System Design \& Backend}
+{Scalable System Design, REST APIs (Flask), Model Deployment, Microservices, JSON Data Pipelines}
+
+\resumeSubItem{Cloud \& DevOps}
+{AWS, Google Cloud, Docker, Linux, Git/GitHub}
+
+\resumeSubItem{Data Visualization}
+{Power BI, Excel (VBA), Matplotlib, Seaborn}
+
+\resumeSubHeadingListEnd
+
+%-----------CERTIFICATIONS-----------------
+\section{Certifications}
+\resumeSubHeadingListStartBullets
+\resumeSubItem{Deep Learning}
+{NPTEL – IIT Ropar, \textbf{Score: 66\%}}
+
+\resumeSubItem{AI/ML for Geodata Analysis}
+{IISRO-IIRS (ISRO) – Applied AI/ML to satellite imagery and geospatial data.}
+
+\resumeSubItem{Code4Cause Hackathon 2.0}
+{National-level hackathon participation, solving real-world technology problems under time constraints.}
+
+\resumeSubItem{Signal Processing Onramp}
+{Applied MATLAB to real-world signal processing, visualization, and data analysis.}
+\resumeSubHeadingListEnd
+    
+%-------------------------------------------
+\end{document}
