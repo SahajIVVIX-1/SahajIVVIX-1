@@ -123,6 +123,27 @@ class SahajSaliya:
 
 ---
 
+## 🐍 Specialized Python Applications
+> High-performance automation & productivity tools built with Python & PyQt6
+
+<div align="center">
+
+| **📺 vMix Manager** | **🚀 PyEnv Launcher** |
+| :--- | :--- |
+| [![Repo](https://img.shields.io/badge/View-Project-blue?style=flat-square&logo=github)](https://github.com/SahajIVVIX-1/vMix-Manager) | [![Repo](https://img.shields.io/badge/View-Project-green?style=flat-square&logo=github)](https://github.com/SahajIVVIX-1/PyEnv-Launcher) |
+| Direct XML Production Engine for batch vMix operations and automation. | Sleek PyQt6 GUI for effortless PyEnv environment and package management. |
+| `Python` `PyQt6` `XML Engine` | `PyQt6` `PyEnv` `Package Mgr` |
+
+| **🔔 Smaran Reminder** |
+| :--- |
+| [![Repo](https://img.shields.io/badge/View-Project-orange?style=flat-square&logo=github)](https://github.com/SahajIVVIX-1/Smaran-Reminder-App) |
+| Non-intrusive desktop popup reminder with deep scheduling logic and burst mode. |
+| `Python` `PyQt6` `Automation` |
+
+</div>
+
+---
+
 
 ## 🛠️ Tech Stack
 
