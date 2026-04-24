@@ -56,7 +56,7 @@ class SahajSaliya:
 <tr>
 <td width="50%" valign="top">
 
-### 🧠 [DCGAN Modernization & Analytics](https://github.com/SahajIVVIX-1)
+### 🧠 [DCGAN Modernization & Analytics](https://github.com/SahajIVVIX-1/Modern-DCGAN-Reproducibility)
 > High-stability Generative Adversarial Network with Post-Training Diagnostics
 
 - 🔗 **PyTorch** + Torchvision for stable GAN training
@@ -71,7 +71,7 @@ class SahajSaliya:
 </td>
 <td width="50%" valign="top">
 
-### 🛡️ [SentinelProxy Suite](https://github.com/SahajIVVIX-1)
+### 🛡️ [SentinelProxy Suite](https://github.com/SahajIVVIX-1/SentinelProxy-Suite)
 > Secure Network Gateways with Traffic Intelligence
 
 - 🤝 **Node.js** AI-enhanced HTTPS proxy and DNS resolver
