@@ -134,11 +134,11 @@ class SahajSaliya:
 | Direct XML Production Engine for batch vMix operations and automation. | Sleek PyQt6 GUI for effortless PyEnv environment and package management. |
 | `Python` `PyQt6` `XML Engine` | `PyQt6` `PyEnv` `Package Mgr` |
 
-| **🔔 Smaran Reminder** |
-| :--- |
-| [![Repo](https://img.shields.io/badge/View-Project-orange?style=flat-square&logo=github)](https://github.com/SahajIVVIX-1/Smaran-Reminder-App) |
-| Non-intrusive desktop popup reminder with deep scheduling logic and burst mode. |
-| `Python` `PyQt6` `Automation` |
+| **🔔 Smaran Reminder** | **🎥 Video & PDF Suite** |
+| :--- | :--- |
+| [![Repo](https://img.shields.io/badge/View-Project-orange?style=flat-square&logo=github)](https://github.com/SahajIVVIX-1/Smaran-Reminder-App) | [![Repo](https://img.shields.io/badge/View-Project-red?style=flat-square&logo=github)](https://github.com/SahajIVVIX-1/Video-Analyzer-Scroller) |
+| Non-intrusive desktop popup reminder with deep scheduling logic. | FFmpeg folder auditing & PDF-to-Video scrolling conversion tools. |
+| `Python` `PyQt6` `Automation` | `OpenCV` `FFmpeg` `Media Tools` |
 
 </div>
 
