@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Animated Header Banner -->
-<img width="100%" src="https://capsule-render.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=Sahaj%20Saliya&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=38&desc=Machine%20Learning%20%26%20Deep%20Learning&descAlignY=62&descSize=18" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=Sahaj%20Saliya&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=30&desc=Machine+Learning+and+Deep+Learning&descAlignY=50&descSize=25" />
 
 <!-- Typing animation -->
 <a href="https://www.linkedin.com/in/sahajs59/">
