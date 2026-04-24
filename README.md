@@ -71,6 +71,24 @@ class SahajSaliya:
 </td>
 <td width="50%" valign="top">
 
+### 🤖 [OpenEnv — RL Data Cleaning Agent](https://github.com/SahajIVVIX-1/open-env-nuclei)
+> Autonomous data cleaning via Reinforcement Learning & Llama 3
+
+- 🤖 **Llama 3** agent that autonomously cleans tabular data via RL
+- 🎮 **Custom RL environment** with reward-driven decisions
+- 🐳 Containerized with **multi-stage Docker**
+- 🚀 Deployed on **HuggingFace Spaces** with REST API
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![RL](https://img.shields.io/badge/RL-FF6B35?style=flat)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
 ### 🛡️ [SentinelProxy Suite](https://github.com/SahajIVVIX-1/SentinelProxy-Suite)
 > Secure Network Gateways with Traffic Intelligence
 
@@ -85,8 +103,6 @@ class SahajSaliya:
 ![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=flat&logo=powershell&logoColor=white)
 
 </td>
-</tr>
-<tr>
 <td width="50%" valign="top">
 
 ### 🔬 [Microplastic Detection System](https://github.com/SahajIVVIX-1)
@@ -100,22 +116,6 @@ class SahajSaliya:
 ![YOLOv11](https://img.shields.io/badge/YOLOv11-00FF00?style=flat)
 ![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
-
-</td>
-<td width="50%" valign="top">
-
-### 🤖 [OpenEnv — RL Data Cleaning Agent](https://github.com/SahajIVVIX-1/open-env-nuclei)
-> Autonomous data cleaning via Reinforcement Learning & Llama 3
-
-- 🤖 **Llama 3** agent that autonomously cleans tabular data via RL
-- 🎮 **Custom RL environment** with reward-driven decisions
-- 🐳 Containerized with **multi-stage Docker**
-- 🚀 Deployed on **HuggingFace Spaces** with REST API
-
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
-![RL](https://img.shields.io/badge/RL-FF6B35?style=flat)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
 
 </td>
 </tr>
