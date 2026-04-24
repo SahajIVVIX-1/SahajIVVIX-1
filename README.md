@@ -182,7 +182,7 @@ class SahajSaliya:
 
 <div align="center">
   <a href="https://github.com/ashutosh00710/github-readme-activity-graph">
-    <img src="https://github-readme-activity-graph.vercel.app/graph?username=SahajIVVIX-1&bg_color=1d1d1d&color=58a6ff&line=1f6feb&point=58a6ff&area=true&hide_border=true" alt="Sahaj's github activity graph" />
+    <img src="https://github-readme-activity-graph.vercel.app/graph?username=SahajIVVIX-1&bg_color=1d1d1d&color=8b949e&line=26a641&point=8b949e&area=true&hide_border=true" alt="Sahaj's github activity graph" />
   </a>
 </div>
 
