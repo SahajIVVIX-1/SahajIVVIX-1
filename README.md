@@ -122,7 +122,6 @@ class SahajSaliya:
 
 ---
 
-## 🛠️ Tech Stack
 
 ## 🛠️ Tech Stack
 
