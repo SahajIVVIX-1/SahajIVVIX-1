@@ -103,17 +103,18 @@ class SahajSaliya:
 </td>
 <td width="50%" valign="top">
 
-### 🤖 [Smaran — Smart Desktop Reminder](https://github.com/SahajIVVIX-1)
-> Productivity Automation with Animated Notifications
+### 🤖 [OpenEnv — RL Data Cleaning Agent](https://github.com/SahajIVVIX-1/open-env-nuclei)
+> Autonomous data cleaning via Reinforcement Learning & Llama 3
 
-- 🗂️ **PyQt6**-based Windows productivity application
-- 📅 Advanced scheduling logic & animated UI feedback
-- 📄 Seamless management of tasks via JSON/CSV persistence
-- 💬 Developer-centric design for high efficiency
+- 🤖 **Llama 3** agent that autonomously cleans tabular data via RL
+- 🎮 **Custom RL environment** with reward-driven decisions
+- 🐳 Containerized with **multi-stage Docker**
+- 🚀 Deployed on **HuggingFace Spaces** with REST API
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-![PyQt6](https://img.shields.io/badge/PyQt6-41CD52?style=flat&logo=qt&logoColor=white)
-![Automation](https://img.shields.io/badge/Automation-8A2BE2?style=flat)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![RL](https://img.shields.io/badge/RL-FF6B35?style=flat)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
 
 </td>
 </tr>
