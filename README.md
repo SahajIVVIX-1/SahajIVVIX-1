@@ -185,6 +185,12 @@ class SahajSaliya:
   <img src="https://github-readme-streak-stats.herokuapp.com?user=SahajIVVIX-1&theme=vue-dark&hide_border=true" />
 </div>
 
+<br>
+
+<div align="center">
+  <img src="https://leetcard.jacoblin.cool/sahajs59?theme=dark&font=Lusitana&ext=activity" alt="LeetCode Stats" />
+</div>
+
 ---
 
 ## 📈 Contribution Graph
