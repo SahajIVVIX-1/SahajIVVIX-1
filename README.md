@@ -188,7 +188,7 @@ class SahajSaliya:
 <br>
 
 <div align="center">
-  <img src="https://leetcard.jacoblin.cool/sahajs59?theme=dark&font=Lusitana&ext=activity" alt="LeetCode Stats" />
+  <img src="https://leetcard.jacoblin.cool/sahajs59?theme=dark&font=Ruda&ext=activity" alt="LeetCode Stats" />
 </div>
 
 ---
