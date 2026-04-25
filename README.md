@@ -25,30 +25,12 @@
 
 ## 🧠 About Me
 
-```python
-class SahajSaliya:
-    def __init__(self):
-        self.name        = "Sahaj Saliya"
-        self.role        = "AI/ML & ICT Student"
-        self.university  = "Pandit Deendayal Energy University (PDEU)"
-        self.degree      = "B.Tech Information & Communication Technology"
-        self.gpa         = 8.0
-        self.location    = "GIFT City, Gujarat, India 🇮🇳"
-
-    @property
-    def currently_building(self):
-        return [
-            "🎨 High-stability DCGANs with Latent Space Analytics",
-            "🛡️ SentinelProxy — Secure AI-enhanced Network Gateways",
-            "🔬 Microplastic Detection via YOLOv11 & Computer Vision",
-        ]
-
-    @property
-    def tech_philosophy(self):
-        return "Smartness lies in strategic laziness — automate the mundane."
-```
-
----
+<a href="https://github.com/Andrew6rant/Andrew6rant">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/refs/heads/main/dark_mode.svg">
+    <img alt="Andrew Grant's GitHub Profile README" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/refs/heads/main/light_mode.svg">
+  </picture>
+</a>
 
 ## 🚀 Featured Projects
 
