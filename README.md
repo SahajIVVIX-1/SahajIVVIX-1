@@ -1,27 +1,16 @@
 <div align="center">
 
-<!-- Animated Header Banner -->
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=Sahaj%20Saliya&fontSize=42&fontColor=fff&animation=twinkling&fontAlignY=30&desc=Deep+Learning+|+Machine+Learning+|+Mathematics+|+Computer+Networks+|+Interested+in+Research&descAlignY=50&descSize=16" />
+<!-- Self-hosted motion graphics: generated entirely by assets/motion/generate.py -->
+<img width="100%" src="./assets/motion/hero.svg" alt="Sahaj Saliya — AI Systems, Agentic AI, Security and Research" />
 
-<!-- Typing animation -->
-<a href="https://www.linkedin.com/in/sahajs59/">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=39FF14&center=true&vCenter=true&width=600&lines=Building+the+Future+with+AI;Generative+AI+%7C+Computer+Vision+%7C+Edge+AI;B.Tech+ICT+%40+PDEU+%7C+GPA+8.0;IEEE+Conference+Presenter+%C3%97+2;Automating+efficiency+through+intelligent+code" alt="Typing SVG" />
-</a>
-
-<br/>
-
-<!-- Social Badges -->
-[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://sahajivvix-1.github.io/Portfolio2026/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sahajs59/)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/SahajIVVIX-1)
-[![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/SahajS59)
-[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/channels/@me/1290273332088016997)
-[![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://sahajs59.medium.com)
-[![Email](https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sahajs7959@gmail.com)
+[![Portfolio](https://img.shields.io/badge/Portfolio-0B1220?style=for-the-badge&logo=vercel&logoColor=67E8F9)](https://sahajivvix-1.github.io/Portfolio2026/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0B1220?style=for-the-badge&logo=linkedin&logoColor=67E8F9)](https://www.linkedin.com/in/sahajs59/)
+[![GitHub](https://img.shields.io/badge/GitHub-0B1220?style=for-the-badge&logo=github&logoColor=67E8F9)](https://github.com/SahajIVVIX-1)
+[![X](https://img.shields.io/badge/X-0B1220?style=for-the-badge&logo=x&logoColor=67E8F9)](https://x.com/SahajS59)
 
 </div>
 
----
+<img width="100%" src="./assets/motion/divider.svg" alt="Animated divider" />
 
 ## 🧠 About Me
 
@@ -32,78 +21,64 @@
   </picture>
 </a>
 
-## 🚀 Featured Projects
+> I build AI systems where **retrieval, reasoning, validation, security and infrastructure** work together. My current focus is agentic AI, RAG systems, computer vision, ML engineering and research-driven software.
 
-<table>
-<tr>
-<td width="50%" valign="top">
+## 🚀 Featured Systems
 
-### 🧠 [DCGAN Modernization & Analytics](https://github.com/SahajIVVIX-1/Modern-DCGAN-Reproducibility)
-> High-stability Generative Adversarial Network with Post-Training Diagnostics
+### 🤖 Multi-Agent RAG — Enterprise Agentic RAG Orchestrator
 
-- 🔗 **PyTorch** + Torchvision for stable GAN training
-- 📦 **Nash Equilibrium** stabilization via Label Smoothing & D-Dropout
-- 📊 **Analytics Dashboard**: Confidence histograms & learned detector visualization
-- ⚡ **Latent Space** analysis for edge/texture detection
+<a href="https://github.com/SahajIVVIX-1/Multi-Agent-RAG">
+  <img width="100%" src="./assets/motion/multi-agent-rag.svg" alt="Animated Multi-Agent RAG architecture" />
+</a>
 
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
-![GenAI](https://img.shields.io/badge/GenAI-FF6B35?style=flat)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+**Supervisor → Worker → Validator architecture** with LangGraph CRAG, hybrid dense+sparse retrieval, CrossEncoder reranking, Qdrant ANN semantic caching, Redis session memory, secure SQL/tool agents and human-in-the-loop actions. The repository documents **0.81 RAGAS faithfulness, 1.00 context precision, 0.90 context recall and 0.75 answer relevancy** on its evaluation datasets.
 
-</td>
-<td width="50%" valign="top">
+[**View repository →**](https://github.com/SahajIVVIX-1/Multi-Agent-RAG)
 
-### 🤖 [OpenEnv — RL Data Cleaning Agent](https://github.com/SahajIVVIX-1/open-env-nuclei)
-> Autonomous data cleaning via Reinforcement Learning & Llama 3
+| Layer | Implementation |
+| :--- | :--- |
+| Orchestration | LangGraph + LangChain |
+| Retrieval | Qdrant dense + BM25 sparse + CrossEncoder reranking |
+| Memory & Cache | Redis + Qdrant semantic cache |
+| Security | API auth, rate limiting, prompt-injection guard, read-only SQL, encrypted secrets |
+| Interface | FastAPI + Next.js + TypeScript |
 
-- 🤖 **Llama 3** agent that autonomously cleans tabular data via RL
-- 🎮 **Custom RL environment** with reward-driven decisions
-- 🐳 Containerized with **multi-stage Docker**
-- 🚀 Deployed on **HuggingFace Spaces** with REST API
+### 🧠 DCGAN Modernization & Analytics
+> High-stability Generative Adversarial Network with post-training diagnostics.
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
-![RL](https://img.shields.io/badge/RL-FF6B35?style=flat)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+- PyTorch + Torchvision training and diagnostics
+- Label smoothing and discriminator regularization
+- Confidence histograms and learned-detector visualization
+- Latent-space analysis for generated features
 
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
+[**View project →**](https://github.com/SahajIVVIX-1/Modern-DCGAN-Reproducibility)
 
-### 🛡️ [SentinelProxy Suite](https://github.com/SahajIVVIX-1/SentinelProxy-Suite)
-> Secure Network Gateways with Traffic Intelligence
+### 🛡️ SentinelProxy Suite
+> Secure network gateways with traffic intelligence.
 
-- 🤝 **Node.js** AI-enhanced HTTPS proxy and DNS resolver
-- 🌐 Real-time traffic inspection & Dynamic blocklist enforcement
-- ✅ **RBAC** (Role-Based Access Control) integration
-- 📊 **SQLite** backend for persistent auditing and logging
+- Node.js HTTPS proxy and DNS resolver
+- Real-time traffic inspection and dynamic blocklists
+- RBAC and persistent SQLite auditing
 
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)
-![Socket.io](https://img.shields.io/badge/Socket.IO-010101?style=flat&logo=socketdotio&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
-![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=flat&logo=powershell&logoColor=white)
+[**View project →**](https://github.com/SahajIVVIX-1/SentinelProxy-Suite)
 
-</td>
-<td width="50%" valign="top">
+### 🤖 OpenEnv — RL Data Cleaning Agent
+> Autonomous data cleaning using reinforcement learning and Llama 3.
 
-### 🔬 [Microplastic Detection System](https://github.com/SahajIVVIX-1)
-> Visual Intelligence for Automated Environmental Analysis
+- Reward-driven cleaning environment
+- Containerized deployment with Docker
+- REST API and Hugging Face Spaces deployment
 
-- 🎮 **YOLOv11** fine-tuning for microplastic particle detection
-- 🦙 Particle size estimation under varying imaging conditions
-- 🐳 Optimized for **CUDA**-accelerated inference
-- 🚀 Real-time visual data processing pipeline
+[**View project →**](https://github.com/SahajIVVIX-1/open-env-nuclei)
 
-![YOLOv11](https://img.shields.io/badge/YOLOv11-00FF00?style=flat)
-![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
+### 🔬 Computer Vision & Environmental Analysis
+> Vision pipelines for detection, measurement and automated analysis.
 
-</td>
-</tr>
-</table>
+- YOLO-based object detection experiments
+- OpenCV image-processing pipelines
+- CUDA-accelerated inference workflows
 
----
+<img width="100%" src="./assets/motion/divider.svg" alt="Animated divider" />
 
 ## 🐍 Specialized Python Applications
 > High-performance automation & productivity tools built with Python & PyQt6
@@ -195,6 +170,6 @@
 [![Discord](https://img.shields.io/badge/Chat_on_Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/channels/@me/1290273332088016997)
 [![Email](https://img.shields.io/badge/Send_an_Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sahajs7959@gmail.com)
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" />
+<img width="100%" src="./assets/motion/divider.svg" alt="Animated footer divider" />
 
 </div>
