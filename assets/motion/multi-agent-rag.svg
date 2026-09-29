@@ -1,1 +1,44 @@
+<<<<<<< HEAD
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470"><defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#030712"/><stop offset="1" stop-color="#071b1b"/></linearGradient><linearGradient id="w"><stop stop-color="#22d3ee"/><stop offset=".5" stop-color="#818cf8"/><stop offset="1" stop-color="#34d399"/></linearGradient><filter id="g"><feGaussianBlur stdDeviation="3" result="x"/><feMerge><feMergeNode in="x"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="2" y="2" width="1196" height="466" rx="26" fill="url(#b)" stroke="#173047"/><text x="38" y="48" fill="#f8fafc" font-family="Inter,Arial" font-size="26" font-weight="700">Multi-Agent RAG</text><text x="38" y="72" fill="#64748b" font-family="monospace" font-size="11">ENTERPRISE AGENTIC RAG ORCHESTRATOR // LIVE EXECUTION MODEL</text><rect x="38" y="90" width="1124" height="1" fill="#173047"/><g fill="none" stroke="url(#w)" stroke-width="2" stroke-dasharray="7 10" opacity=".62"><path d="M135 177 H245"/><path d="M365 177 H490"/><path d="M610 177 H735"/><path d="M855 177 H980"/><path d="M550 230 C550 285 430 300 340 335"/><path d="M650 230 C650 285 770 300 860 335"/><animate attributeName="stroke-dashoffset" from="0" to="-68" dur="2.7s" repeatCount="indefinite"/></g><g fill="#67e8f9" filter="url(#g)"><circle r="4"><animateMotion dur="2.6s" repeatCount="indefinite" path="M135 177 H245"/></circle><circle r="4"><animateMotion dur="3s" begin="-.6s" repeatCount="indefinite" path="M365 177 H490"/></circle><circle r="4"><animateMotion dur="2.8s" begin="-1.2s" repeatCount="indefinite" path="M610 177 H735"/></circle><circle r="4"><animateMotion dur="3.1s" begin="-1.8s" repeatCount="indefinite" path="M855 177 H980"/></circle></g><g font-family="monospace" font-size="10" text-anchor="middle"><g><rect x="38" y="140" width="97" height="74" rx="13" fill="#071827" stroke="#22d3ee"/><text x="86" y="166" fill="#e2e8f0">GATEWAY</text><text x="86" y="185" fill="#67e8f9">FastAPI</text><text x="86" y="201" fill="#64748b">auth + rate</text></g><g><rect x="245" y="140" width="120" height="74" rx="13" fill="#0b1022" stroke="#818cf8"/><text x="305" y="166" fill="#e2e8f0">SUPERVISOR</text><text x="305" y="185" fill="#a5b4fc">route query</text><text x="305" y="201" fill="#64748b">LLM classifier</text></g><g><rect x="490" y="140" width="120" height="74" rx="13" fill="#111024" stroke="#f59e0b"/><text x="550" y="166" fill="#e2e8f0">CRAG</text><text x="550" y="185" fill="#fde68a">grade → rewrite</text><text x="550" y="201" fill="#64748b">max 2 loops</text></g><g><rect x="735" y="140" width="120" height="74" rx="13" fill="#071a17" stroke="#34d399"/><text x="795" y="166" fill="#e2e8f0">RERANK</text><text x="795" y="185" fill="#86efac">hybrid search</text><text x="795" y="201" fill="#64748b">dense + BM25</text></g><g><rect x="980" y="140" width="120" height="74" rx="13" fill="#071827" stroke="#22d3ee"/><text x="1040" y="166" fill="#e2e8f0">VALIDATOR</text><text x="1040" y="185" fill="#67e8f9">re-ground</text><text x="1040" y="201" fill="#64748b">answer + source</text></g></g><g font-family="monospace" font-size="10" text-anchor="middle"><rect x="250" y="315" width="180" height="58" rx="12" fill="#071827" stroke="#164e63"/><text x="340" y="339" fill="#67e8f9">QDRANT ANN CACHE</text><text x="340" y="357" fill="#64748b">cosine ≥ 0.96</text><rect x="510" y="315" width="180" height="58" rx="12" fill="#071827" stroke="#334155"/><text x="600" y="339" fill="#cbd5e1">SPECIALIST AGENTS</text><text x="600" y="357" fill="#64748b">DB · TOOL · CHAT · RAG</text><rect x="770" y="315" width="180" height="58" rx="12" fill="#071827" stroke="#065f46"/><text x="860" y="339" fill="#86efac">REDIS MEMORY</text><text x="860" y="357" fill="#64748b">sessions + queues</text></g><rect x="38" y="400" width="1124" height="42" rx="12" fill="#050b14" stroke="#17283a"/><g font-family="monospace" font-size="10"><text x="58" y="426" fill="#67e8f9">RAGAS</text><text x="106" y="426" fill="#e2e8f0">0.81 faithfulness</text><text x="265" y="426" fill="#67e8f9">PRECISION</text><text x="340" y="426" fill="#e2e8f0">1.00</text><text x="400" y="426" fill="#67e8f9">RECALL</text><text x="458" y="426" fill="#e2e8f0">0.90</text><text x="520" y="426" fill="#67e8f9">RELEVANCY</text><text x="605" y="426" fill="#e2e8f0">0.75</text><text x="680" y="426" fill="#67e8f9">STACK</text><text x="732" y="426" fill="#94a3b8">LangGraph · Qdrant · Redis · FastAPI · Next.js</text></g></svg>
+=======
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300" role="img" aria-labelledby="title desc">
+<title id="title">Multi-Agent RAG — Enterprise Agentic RAG Orchestrator</title>
+<desc id="desc">Animated architecture card showing supervisor, retrieval, database, tools and validation agents.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#071b18"/></linearGradient>
+  <linearGradient id="wire"><stop stop-color="#67e8f9"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="2" y="2" width="1096" height="296" rx="20" fill="url(#bg)" stroke="#1e3a4a"/>
+<g font-family="Inter,Segoe UI,Arial,sans-serif">
+<text x="30" y="42" fill="#f8fafc" font-size="25" font-weight="700">Multi-Agent RAG</text>
+<text x="30" y="66" fill="#94a3b8" font-size="13">Supervisor → Worker → Validator • CRAG • Hybrid Retrieval • Secure Tooling</text>
+
+<g fill="none" stroke="url(#wire)" stroke-width="2" stroke-dasharray="7 10" opacity=".65">
+ <path d="M170 145 H310"/><path d="M420 145 H540"/><path d="M650 145 H790"/><path d="M900 145 H1010"/>
+ <animate attributeName="stroke-dashoffset" from="0" to="-68" dur="2.8s" repeatCount="indefinite"/>
+</g>
+<g filter="url(#glow)" fill="#67e8f9">
+ <circle r="4"><animateMotion dur="2.8s" repeatCount="indefinite" path="M170 145 H310"/></circle>
+ <circle r="4"><animateMotion dur="3.2s" begin="-.8s" repeatCount="indefinite" path="M420 145 H540"/></circle>
+ <circle r="4"><animateMotion dur="3s" begin="-1.4s" repeatCount="indefinite" path="M650 145 H790"/></circle>
+</g>
+
+<g font-size="11" text-anchor="middle">
+ <g><rect x="55" y="112" width="115" height="66" rx="12" fill="#0b1726" stroke="#67e8f9"/><text x="112" y="140" fill="#e2e8f0">SUPERVISOR</text><text x="112" y="158" fill="#67e8f9">route query</text></g>
+ <g><rect x="310" y="112" width="110" height="66" rx="12" fill="#0b1726" stroke="#818cf8"/><text x="365" y="140" fill="#e2e8f0">CRAG</text><text x="365" y="158" fill="#a5b4fc">retrieve + grade</text></g>
+ <g><rect x="540" y="112" width="110" height="66" rx="12" fill="#0b1726" stroke="#f59e0b"/><text x="595" y="140" fill="#e2e8f0">RERANK</text><text x="595" y="158" fill="#fde68a">CrossEncoder</text></g>
+ <g><rect x="790" y="112" width="110" height="66" rx="12" fill="#0b1726" stroke="#34d399"/><text x="845" y="140" fill="#e2e8f0">AGENTS</text><text x="845" y="158" fill="#86efac">DB / Tool / Chat</text></g>
+ <g><rect x="1010" y="112" width="65" height="66" rx="12" fill="#0b1726" stroke="#67e8f9"/><text x="1042" y="140" fill="#e2e8f0">VAL</text><text x="1042" y="158" fill="#67e8f9">ground</text></g>
+</g>
+
+<g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12">
+ <text x="30" y="225" fill="#67e8f9">RAGAS</text><text x="90" y="225" fill="#cbd5e1">0.81 faithfulness</text>
+ <text x="275" y="225" fill="#67e8f9">CTX</text><text x="320" y="225" fill="#cbd5e1">1.00 precision</text>
+ <text x="490" y="225" fill="#67e8f9">CACHE</text><text x="550" y="225" fill="#cbd5e1">Qdrant ANN ≥ 0.96</text>
+ <text x="760" y="225" fill="#67e8f9">SECURITY</text><text x="845" y="225" fill="#cbd5e1">API auth • rate limit • injection guard</text>
+ <text x="30" y="258" fill="#64748b">FastAPI</text><text x="105" y="258" fill="#64748b">LangGraph</text><text x="205" y="258" fill="#64748b">Qdrant</text><text x="280" y="258" fill="#64748b">BM25</text><text x="350" y="258" fill="#64748b">Redis</text><text x="420" y="258" fill="#64748b">RAGAS</text><text x="505" y="258" fill="#64748b">Next.js</text>
+</g>
+</g>
+</svg>
+>>>>>>> ae7521f548dd7215d1602cf0f95a2cca22f442ca

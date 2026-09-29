@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 name: Build Profile
+=======
+name: README build
+>>>>>>> ae7521f548dd7215d1602cf0f95a2cca22f442ca
 
 on:
   push:
     branches: [main]
   schedule:
+<<<<<<< HEAD
     - cron: '0 4 * * *'
+=======
+    - cron: "0 4 * * *"
+>>>>>>> ae7521f548dd7215d1602cf0f95a2cca22f442ca
   workflow_dispatch:
 
 permissions:
@@ -14,6 +22,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+<<<<<<< HEAD
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -21,20 +30,49 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+=======
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: cache/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r cache/requirements.txt
+>>>>>>> ae7521f548dd7215d1602cf0f95a2cca22f442ca
 
       - name: Generate motion graphics
         run: python assets/motion/generate.py
 
+<<<<<<< HEAD
       - name: Update GitHub statistics
+=======
+      - name: Update README statistics
+>>>>>>> ae7521f548dd7215d1602cf0f95a2cca22f442ca
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           USER_NAME: ${{ secrets.USER_NAME }}
         run: python today.py
 
+<<<<<<< HEAD
       - name: Commit generated assets
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md assets/motion cache || true
           git diff --cached --quiet || git commit -m "chore: refresh profile telemetry and motion assets"
+=======
+      - name: Commit generated changes
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add README.md dark_mode.svg light_mode.svg cache/ assets/motion/
+          git diff --cached --quiet || git commit -m "chore: update profile"
+>>>>>>> ae7521f548dd7215d1602cf0f95a2cca22f442ca
           git push
