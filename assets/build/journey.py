@@ -153,9 +153,11 @@ def route():
     add("fall", "section-experience", 1020 - 30, 48, UP)
     add("walk", "section-experience", 255 + 26, 48, UP)
     letters("section-experience", title("section-experience", "Experience"), reverse=True, first="hop")
-    # onto the timeline rail, all the way across, then down the right card
-    add("leap", "experience", 22, 16, UP)
-    add("walk", "experience", 1186, 16, UP)
+    # flip under the timeline rail and hang from it all the way across (the rail sits
+    # 16px from the image top, too close to stand on without the antenna being cut),
+    # then swing onto the right card. -180 is "upside down", turning the short way to LEFT.
+    add("leap", "experience", 22, 15, -180)
+    add("walk", "experience", 1186, 15, -180)
     add("leap", "experience", 1199.5, 96, LEFT)
     add("walk", "experience", 1199.5, 372, LEFT)
     # ── Selected work: rule, title, then the RAG headline and subtitle ──
