@@ -12,6 +12,7 @@ import base64, html, io, os, re
 from fontTools import subset
 from fontTools.ttLib import TTFont
 from PIL import Image
+import journey
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.dirname(HERE)  # assets/
@@ -103,6 +104,7 @@ class Svg:
 def save(name, build):
     for theme in THEMES:
         svg = build(theme)
+        journey.attach(svg, name)
         path = os.path.join(OUT, f"{name}-{theme}.svg")
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(svg.render())
@@ -770,7 +772,9 @@ def save_root(name, build):
     for theme in THEMES:
         path = os.path.join(OUT, "..", f"{theme}_mode.svg")
         with open(path, "w", encoding="utf-8") as fh:
-            fh.write(build(theme).render())
+            svg = build(theme)
+            journey.attach(svg, name)
+            fh.write(svg.render())
         print(f"{os.path.getsize(path)/1024:6.1f} KB  {theme}_mode.svg")
 
 

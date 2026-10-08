@@ -11,6 +11,7 @@ import json, math, os, random, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.environ.setdefault("PORTRAIT", "")  # the board has no portrait; skip loading it
 from build import Svg, THEMES, OUT, measure  # noqa: E402
+import journey  # noqa: E402
 
 EXTRA = {"dark": dict(gold="#D4B06A", plum="#B48EAD"), "light": dict(gold="#8C6A1F", plum="#7A4F74")}
 DIGITS = "0123456789,.%"
@@ -390,6 +391,7 @@ def main():
             data = digest(json.load(fh))
     for theme in THEMES:
         svg, _ = board(data, theme)
+        journey.attach(svg, "insights")
         path = os.path.join(OUT, f"insights-{theme}.svg")
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(svg.render())
