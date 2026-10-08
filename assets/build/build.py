@@ -60,13 +60,15 @@ class Svg:
         self.body, self.css, self.chars = [], [], {k: set() for k in FONT_FILES}
 
     def text(self, x, y, s, role="sans", size=16, weight=400, style="normal",
-             fill="text", anchor="start", cls="", ls=0, raw=None):
-        """raw: list of (string, weight, fill, style) runs for mixed styling."""
+             fill="text", anchor="start", cls="", ls=0, raw=None, tid=None, extra=""):
+        """raw: list of (string, weight, fill, style) runs for mixed styling.
+        tid: id on the (single) tspan, so today.py can rewrite its text; extra: glyphs to keep for that."""
         runs = raw or [(s, weight, fill, style)]
         parts = []
         for r, wgt, fl, st in runs:
-            self.chars[(role, wgt, st)].update(r)
-            parts.append(f'<tspan font-weight="{wgt}" font-style="{st}" fill="{self.t.get(fl, fl)}">{esc(r)}</tspan>')
+            self.chars[(role, wgt, st)].update(r + extra)
+            i = f' id="{tid}"' if tid else ""
+            parts.append(f'<tspan{i} font-weight="{wgt}" font-style="{st}" fill="{self.t.get(fl, fl)}">{esc(r)}</tspan>')
         a = f' class="{cls}"' if cls else ""
         l = f' letter-spacing="{ls}"' if ls else ""
         self.body.append(f'<text x="{x:.1f}" y="{y:.1f}" font-family="{FAMILY[role]}" font-size="{size}" '
@@ -254,7 +256,7 @@ SECTIONS = [
     ("work", "03", "Selected work", "flagship first"),
     ("toolkit", "04", "Toolkit", "what I reach for"),
     ("recognition", "05", "Recognition", "papers, hackathons, certificates"),
-    ("signals", "06", "Signals", "live GitHub activity"),
+    ("signals", "06", "Signals", "live GitHub telemetry"),
 ]
 
 
@@ -362,10 +364,29 @@ def experience(theme):
 
 # ── 5. flagship pipeline ────────────────────────────────────────────────────
 def pipeline(theme):
-    W, H = 1200, 490
-    s = Svg(W, H, "Enterprise Agentic RAG Orchestrator architecture: guard, semantic cache, supervisor, CRAG / NL-to-SQL / human-in-the-loop workers, validator", theme)
+    HEAD = 276
+    W, H = 1200, 490 + HEAD
+    s = Svg(W, H, "Enterprise Agentic RAG Orchestrator: production-grade multi-agent RAG. Architecture: guard, semantic cache, supervisor, CRAG / NL-to-SQL / human-in-the-loop workers, validator", theme)
     t = s.t
     s.add(f'<rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" rx="18" fill="{t["surface"]}" stroke="{t["line"]}"/>')
+    # header: title, hook, description, metrics, stack
+    s.text(40, 54, "", "mono", 12, raw=[("01  ", 500, "accent", "normal"), ("FLAGSHIP · MULTI-AGENT RAG", 400, "faint", "normal")], ls=0.6)
+    s.add(f'<g class="nudge">{arrow(W-56, 40, 16, t["muted"], "ne")}</g>')
+    s.css.append(".nudge{animation:nudge 2.4s ease-in-out infinite}@keyframes nudge{0%,100%{transform:none}50%{transform:translate(3px,-3px)}}")
+    s.text(40, 104, "Enterprise Agentic RAG Orchestrator", "sans", 34, 600, fill="text", ls=-0.6)
+    s.text(40, 138, "Production-grade multi-agent RAG with a self-correcting retrieval loop.", "serif", 20, 400, style="italic", fill="accent")
+    y = 172
+    for ln in wrap("A **Supervisor** routes each query to Corrective RAG, NL-to-SQL or a human-in-the-loop email tool, and a "
+                   "**Validator** checks the answer before it leaves.", "sans", 16, 700):
+        s.text(40, y, "", "sans", 16, raw=line_runs(ln)); y += 24
+    chips(s, 40, y + 2, ["LangGraph", "FastAPI", "Qdrant", "Redis", "RAGAS"])
+    for i, (num, lab) in enumerate([("0.81", "RAGAS FAITHFULNESS"), ("1.00", "CONTEXT PRECISION")]):
+        mx = 850 + i * 170
+        s.add(f'<line x1="{mx-22}" y1="88" x2="{mx-22}" y2="196" stroke="{t["line"]}"/>')
+        s.text(mx, 150, num, "serif", 54, 400, fill="text", ls=-1)
+        s.text(mx, 178, lab, "mono", 11, 500, fill="faint", ls=0.6)
+    s.add(f'<line x1="40" y1="{HEAD-12}" x2="{W-40}" y2="{HEAD-12}" stroke="{t["line"]}"/>')
+    s.add(f'<g transform="translate(0 {HEAD - 20})">')
     nodes = {
         "q": (40, 168, 118, "Query", "user"),
         "g": (190, 168, 150, "Injection guard", "security"),
@@ -441,8 +462,7 @@ def pipeline(theme):
           f'stroke="{t["accent"]}" stroke-width="1.4" stroke-dasharray="5 6"/>')
     s.add(f'<rect x="{(gx+sx+60)/2-86}" y="{py+91}" width="172" height="20" rx="10" fill="{t["bg"]}"/>')
     s.text((gx + sx + 60) / 2, py + 106, "irrelevant: rewrite query", "mono", 11, 500, fill="accent", anchor="middle")
-    s.text(40, 34, "", "mono", 12, raw=[("RAGAS  ", 500, "faint", "normal"), ("faithfulness 0.81", 500, "text", "normal"),
-                                        ("  ·  ", 400, "faint", "normal"), ("context precision 1.00", 500, "text", "normal")])
+    s.add("</g>")
     return s
 
 
@@ -618,6 +638,114 @@ def footer(theme):
     return s
 
 
+# ── 9. live telemetry console (dark_mode.svg / light_mode.svg at repo root) ──
+# today.py rewrites the text of the tspans with these ids every day.
+DIGITS = "0123456789,.—"
+TILES = [
+    ("commit_data", "COMMITS", "authored, all repos"),
+    ("repo_data", "REPOS OWNED", "public and private"),
+    ("contrib_data", "CONTRIBUTED TO", "owner, collaborator, org"),
+    ("star_data", "STARS", "across owned repos"),
+    ("follower_data", "FOLLOWERS", "on GitHub"),
+    ("loc_data", "LINES OF CODE", None),
+]
+BOOT = [
+    ("$", "python today.py --user SahajIVVIX-1", None),
+    ("ok", "auth", "GitHub GraphQL v4"),
+    ("ok", "scan", "owned + collaborator repositories"),
+    ("ok", "diff", "commits since the last cached run"),
+    ("ok", "count", "lines of code I authored"),
+    ("ok", "render", "dark_mode.svg + light_mode.svg"),
+]
+
+
+def telemetry(theme):
+    W, H = 1200, 510
+    s = Svg(W, H, "Live GitHub telemetry for SahajIVVIX-1: commits, repositories, stars, followers and lines of code, refreshed daily", theme)
+    t = s.t
+    s.add(f'<rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" rx="18" fill="{t["bg"]}" stroke="{t["line"]}"/>')
+    # window chrome
+    s.add(f'<path d="M0.5 48 V18.5 a18 18 0 0 1 18 -18 H{W-18.5} a18 18 0 0 1 18 18 V48 Z" fill="{t["surface"]}"/>'
+          f'<line x1="0" y1="48" x2="{W}" y2="48" stroke="{t["line"]}"/>')
+    for i, c in enumerate(["accent", "faint", "olive"]):
+        s.add(f'<circle cx="{26 + i*20}" cy="24" r="6" fill="{t[c]}"/>')
+    s.text(W / 2, 29, "", "mono", 12.5, anchor="middle", raw=[("sahaj@runtime", 500, "text", "normal"), (":", 400, "faint", "normal"),
+                                                            ("~/telemetry", 500, "accent", "normal"), ("  —  zsh", 400, "faint", "normal")])
+    s.add(f'<circle cx="{W-92}" cy="24" r="4.5" fill="{t["olive"]}"/><circle class="ping" cx="{W-92}" cy="24" r="4.5" fill="none" stroke="{t["olive"]}"/>')
+    s.text(W - 76, 28.5, "LIVE", "mono", 11.5, 500, fill="olive", ls=1)
+    s.css.append(f".ping{{animation:ping 2s ease-out infinite;transform-origin:{W-92}px 24px}}"
+                 "@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.2);opacity:0}}")
+    # left: boot log, typed in line by line
+    s.css.append(".ln{opacity:0;animation:ln .35s steps(2) forwards}@keyframes ln{to{opacity:1}}"
+                 ".caret{animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}"
+                 ".up{opacity:0;animation:up .8s cubic-bezier(.2,.7,.2,1) forwards}"
+                 "@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}")
+    y = 96
+    for i, (tag, a, b) in enumerate(BOOT):
+        s.add(f'<g class="ln" style="animation-delay:{0.2 + i*0.45:.2f}s">')
+        if tag == "$":
+            s.text(36, y, "", "mono", 13.5, raw=[("$ ", 500, "accent", "normal"), (a, 400, "text", "normal")])
+        else:
+            s.text(36, y, "", "mono", 13.5, raw=[("[ ok ] ", 500, "olive", "normal"), (f"{a:<7}", 500, "text", "normal"),
+                                                 (b, 400, "muted", "normal")])
+        s.add("</g>"); y += 31
+    s.add(f'<g class="ln" style="animation-delay:{0.2 + len(BOOT)*0.45:.2f}s">')
+    s.text(36, y, "$", "mono", 13.5, 500, fill="accent")
+    s.add(f'<rect class="caret" x="52" y="{y-13}" width="9" height="17" fill="{t["text"]}"/></g>')
+    # left: heartbeat monitor
+    hy, hh = 330, 112
+    s.add(f'<rect x="32" y="{hy}" width="500" height="{hh}" rx="12" fill="{t["surface"]}" stroke="{t["line"]}"/>')
+    s.text(52, hy + 28, "HEARTBEAT", "mono", 11.5, 500, fill="accent", ls=0.8)
+    s.text(512, hy + 28, "cron 0 4 * * *  ·  daily 04:00 UTC", "mono", 11, 400, fill="faint", anchor="end")
+    base, pts, x = hy + 76, [], 52
+    while x < 512:
+        pts += [f"L{x+40} {base}", f"L{x+48} {base-8}", f"L{x+54} {base+10}", f"L{x+60} {base-30}",
+                f"L{x+67} {base+16}", f"L{x+74} {base}"]
+        x += 92
+    wave = f"M52 {base} " + " ".join(pts)
+    s.add(f'<clipPath id="hb"><rect x="44" y="{hy+36}" width="476" height="{hh-40}"/></clipPath><g clip-path="url(#hb)">'
+          f'<path d="{wave}" fill="none" stroke="{t["line"]}" stroke-width="1.6" stroke-linejoin="round"/>'
+          f'<path class="beat" d="{wave}" fill="none" stroke="{t["accent"]}" stroke-width="2.2" stroke-linejoin="round" '
+          f'stroke-linecap="round" pathLength="100" stroke-dasharray="14 86"/></g>')
+    s.css.append(".beat{animation:beat 3.2s linear infinite}@keyframes beat{from{stroke-dashoffset:14}to{stroke-dashoffset:-86}}")
+    # right: metric tiles
+    tx0, ty0, tw, th, g = 560, 76, 192, 176, 12
+    for i, (tid, label, sub) in enumerate(TILES):
+        r, c = divmod(i, 3)
+        x, y = tx0 + c * (tw + g), ty0 + r * (th + g)
+        s.add(f'<g class="up" style="animation-delay:{0.5 + i*0.15:.2f}s">')
+        s.add(f'<rect x="{x}" y="{y}" width="{tw}" height="{th}" rx="12" fill="{t["surface"]}" stroke="{t["line"]}"/>'
+              f'<rect x="{x+20}" y="{y}" width="28" height="3" fill="{t["accent"]}"/>')
+        s.text(x + 20, y + 36, label, "mono", 11.5, 500, fill="faint", ls=0.8)
+        s.text(x + 18, y + 104, "—", "serif", 46, 400, fill="text", ls=-1, tid=tid, extra=DIGITS)
+        if sub:
+            s.text(x + 20, y + 140, sub, "mono", 11, 400, fill="muted")
+        else:
+            role = ("mono", 500, "normal")
+            s.chars[role].update("+−/ —" + DIGITS)
+            s.add(f'<text x="{x+20}" y="{y+140}" font-family="JB" font-size="12">'
+                  f'<tspan font-weight="500" fill="{t["olive"]}">+</tspan><tspan id="loc_add" font-weight="500" fill="{t["olive"]}">—</tspan>'
+                  f'<tspan font-weight="500" fill="{t["faint"]}">  /  </tspan>'
+                  f'<tspan font-weight="500" fill="{t["accent"]}">−</tspan><tspan id="loc_del" font-weight="500" fill="{t["accent"]}">—</tspan></text>')
+            s.text(x + 20, y + 158, "net, authored only", "mono", 11, 400, fill="muted")
+        s.add("</g>")
+    # status bar
+    s.add(f'<line x1="0" y1="{H-52}" x2="{W}" y2="{H-52}" stroke="{t["line"]}"/>')
+    s.text(32, H - 21, "", "mono", 12, raw=[("last sync  ", 400, "faint", "normal")])
+    s.text(32 + measure("last sync  ", "mono", 400, 12), H - 21, "waiting for first run", "mono", 12, 500, fill="text",
+           tid="updated_at", extra="0123456789 :,UTCJanFebMarAprMayJunJulAugSepOctNovDec")
+    s.text(W - 32, H - 21, "source: GitHub GraphQL API  ·  generated by today.py", "mono", 12, 400, fill="faint", anchor="end")
+    return s
+
+
+def save_root(name, build):
+    for theme in THEMES:
+        path = os.path.join(OUT, "..", f"{theme}_mode.svg")
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(build(theme).render())
+        print(f"{os.path.getsize(path)/1024:6.1f} KB  {theme}_mode.svg")
+
+
 if __name__ == "__main__":
     save("hero", hero)
     save("impact", stats)
@@ -633,3 +761,4 @@ if __name__ == "__main__":
         slug = b.lower().replace("é", "e")
         save(f"btn-{slug}", button(b, primary=(i == 0)))
     save("footer", footer)
+    save_root("telemetry", telemetry)

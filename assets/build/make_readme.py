@@ -14,12 +14,6 @@ def link(href, inner):
     return f'<a href="{href}">{inner}</a>'
 
 
-def themed(dark_url, light_url, alt, extra=""):
-    return (f'<picture><source media="(prefers-color-scheme: dark)" srcset="{dark_url}">'
-            f'<source media="(prefers-color-scheme: light)" srcset="{light_url}">'
-            f'<img alt="{alt}" src="{dark_url}"{extra}></picture>')
-
-
 BUTTONS = [
     ("portfolio", "Portfolio", "https://info.sahaj.si/"),
     ("linkedin", "LinkedIn", "https://www.linkedin.com/in/sahajs59/"),
@@ -37,33 +31,6 @@ def section(key, title):
 
 def card(key, repo, alt):
     return link(f"{GH}/{repo}", pic(f"card-{key}", alt, width="49%"))
-
-
-# palette for third-party stat cards (kept in sync with build.py THEMES)
-D = dict(bg="141413", text="F5F4EE", muted="A8A598", accent="D97757", line="35332D")
-L = dict(bg="FAF9F5", text="1A1915", muted="5C5A52", accent="BD5A37", line="DCD7CA")
-
-
-def stats_url(p):
-    return (f"https://github-readme-stats.vercel.app/api?username=SahajIVVIX-1&show_icons=true&count_private=true"
-            f"&include_all_commits=true&hide_border=true&bg_color={p['bg']}&title_color={p['accent']}"
-            f"&text_color={p['text']}&icon_color={p['accent']}&ring_color={p['accent']}")
-
-
-def langs_url(p):
-    return (f"https://github-readme-stats.vercel.app/api/top-langs/?username=SahajIVVIX-1&layout=compact&langs_count=8"
-            f"&hide_border=true&bg_color={p['bg']}&title_color={p['accent']}&text_color={p['text']}")
-
-
-def streak_url(p):
-    return (f"https://streak-stats.demolab.com?user=SahajIVVIX-1&hide_border=true&background={p['bg']}&ring={p['accent']}"
-            f"&fire={p['accent']}&currStreakNum={p['text']}&sideNums={p['text']}&currStreakLabel={p['accent']}"
-            f"&sideLabels={p['muted']}&dates={p['muted']}&stroke={p['line']}")
-
-
-def graph_url(p):
-    return (f"https://github-readme-activity-graph.vercel.app/graph?username=SahajIVVIX-1&hide_border=true&area=true"
-            f"&bg_color={p['bg']}&color={p['muted']}&line={p['accent']}&point={p['text']}&area_color={p['accent']}")
 
 
 ISSUER = {
@@ -97,6 +64,8 @@ README = f"""<!--
   Edit content there (or this file via assets/build/make_readme.py), re-run, commit.
 -->
 
+<p align="right"><img src="https://komarev.com/ghpvc/?username=SahajIVVIX-1&style=for-the-badge&color=D97757&label=PROFILE+VIEWS" alt="profile views"/></p>
+
 <div align="center">
 
 {pic("hero", "Sahaj Saliya. AI Engineer and Researcher building agents that retrieve, reason and learn. Focus: LLMs, Agentic AI, RAG, Reinforcement Learning.", width="100%")}
@@ -113,14 +82,6 @@ I'm an AI engineer and researcher in my final year of **B.Tech in Information & 
 
 My rule is simple: ship it, benchmark it, then make it smarter. I want the projects here to work as open-source tools, publications or products, and I build them on limited compute, so efficiency is part of the design.
 
-<details>
-<summary><b>Open the live terminal card</b> <sub>(regenerated daily by a GitHub Action)</sub></summary>
-<br/>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg">
-  <img alt="Sahaj Saliya terminal profile card" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/light_mode.svg" width="100%">
-</picture>
-</details>
 
 {section("experience", "02 Experience")}
 
@@ -128,10 +89,7 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 
 {section("work", "03 Selected work")}
 
-### 01 &nbsp;[Enterprise Agentic RAG Orchestrator]({GH}/Multi-Agent-RAG)
-*Production-grade multi-agent RAG with a self-correcting retrieval loop.* A **Supervisor** routes each query to Corrective RAG, NL-to-SQL or a human-in-the-loop email tool, and a **Validator** checks the answer before it leaves. Built with LangGraph, FastAPI, Qdrant, Redis and RAGAS.
-
-{link(f"{GH}/Multi-Agent-RAG", pic("rag-pipeline", "Architecture: query, prompt-injection guard, Qdrant semantic cache, supervisor, three workers (Corrective RAG, NL-to-SQL, human-in-the-loop), validator, answer. Inside the CRAG worker: hybrid dense + BM25 retrieval, CrossEncoder rerank, LLM grader with query rewrite.", width="100%"))}
+{link(f"{GH}/Multi-Agent-RAG", pic("rag-pipeline", "Enterprise Agentic RAG Orchestrator: production-grade multi-agent RAG with a self-correcting retrieval loop. RAGAS faithfulness 0.81, context precision 1.00. Architecture: query, prompt-injection guard, Qdrant semantic cache, supervisor, three workers (Corrective RAG, NL-to-SQL, human-in-the-loop), validator, answer. Inside the CRAG worker: hybrid dense + BM25 retrieval, CrossEncoder rerank, LLM grader with query rewrite.", width="100%"))}
 
 <p>
 {card("openenv", "open-env-nuclei", "OpenEnv RL data-cleaning agent: a Llama 3 agent in a custom Q-Learning environment")}
@@ -193,18 +151,11 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 
 {section("signals", "06 Signals")}
 
-<div align="center">
-
-{themed(stats_url(D), stats_url(L), "GitHub stats", ' height="165"')}
-{themed(langs_url(D), langs_url(L), "Top languages", ' height="165"')}
-
-{themed(streak_url(D), streak_url(L), "GitHub streak")}
-
-{themed(graph_url(D), graph_url(L), "Contribution activity graph", ' width="100%"')}
-
-<a href="https://leetcode.com/sahajs59">{themed("https://leetcard.jacoblin.cool/sahajs59?theme=dark&font=Fira%20Code&ext=heatmap", "https://leetcard.jacoblin.cool/sahajs59?theme=light&font=Fira%20Code&ext=heatmap", "LeetCode stats")}</a>
-
-</div>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/light_mode.svg">
+  <img alt="Live GitHub telemetry: commits, repositories, stars, followers and lines of code, refreshed daily by GitHub Actions" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg" width="100%">
+</picture>
 
 <br/>
 
@@ -214,8 +165,6 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 
 {buttons}
 
-<br/><br/>
-<img src="https://komarev.com/ghpvc/?username=SahajIVVIX-1&style=flat-square&color=D97757&label=profile+views" alt="profile views"/>
 
 </div>
 """

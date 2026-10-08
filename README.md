@@ -4,6 +4,8 @@
   Edit content there (or this file via assets/build/make_readme.py), re-run, commit.
 -->
 
+<p align="right"><img src="https://komarev.com/ghpvc/?username=SahajIVVIX-1&style=for-the-badge&color=D97757&label=PROFILE+VIEWS" alt="profile views"/></p>
+
 <div align="center">
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/hero-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/hero-light.svg"><img alt="Sahaj Saliya. AI Engineer and Researcher building agents that retrieve, reason and learn. Focus: LLMs, Agentic AI, RAG, Reinforcement Learning." src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/hero-dark.svg" width="100%"></picture>
@@ -28,14 +30,6 @@ I'm an AI engineer and researcher in my final year of **B.Tech in Information & 
 
 My rule is simple: ship it, benchmark it, then make it smarter. I want the projects here to work as open-source tools, publications or products, and I build them on limited compute, so efficiency is part of the design.
 
-<details>
-<summary><b>Open the live terminal card</b> <sub>(regenerated daily by a GitHub Action)</sub></summary>
-<br/>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg">
-  <img alt="Sahaj Saliya terminal profile card" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/light_mode.svg" width="100%">
-</picture>
-</details>
 
 <br/>
 
@@ -49,10 +43,7 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-work-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-work-light.svg"><img alt="03 Selected work" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-work-dark.svg" width="100%"></picture>
 
 
-### 01 &nbsp;[Enterprise Agentic RAG Orchestrator](https://github.com/SahajIVVIX-1/Multi-Agent-RAG)
-*Production-grade multi-agent RAG with a self-correcting retrieval loop.* A **Supervisor** routes each query to Corrective RAG, NL-to-SQL or a human-in-the-loop email tool, and a **Validator** checks the answer before it leaves. Built with LangGraph, FastAPI, Qdrant, Redis and RAGAS.
-
-<a href="https://github.com/SahajIVVIX-1/Multi-Agent-RAG"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/rag-pipeline-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/rag-pipeline-light.svg"><img alt="Architecture: query, prompt-injection guard, Qdrant semantic cache, supervisor, three workers (Corrective RAG, NL-to-SQL, human-in-the-loop), validator, answer. Inside the CRAG worker: hybrid dense + BM25 retrieval, CrossEncoder rerank, LLM grader with query rewrite." src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/rag-pipeline-dark.svg" width="100%"></picture></a>
+<a href="https://github.com/SahajIVVIX-1/Multi-Agent-RAG"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/rag-pipeline-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/rag-pipeline-light.svg"><img alt="Enterprise Agentic RAG Orchestrator: production-grade multi-agent RAG with a self-correcting retrieval loop. RAGAS faithfulness 0.81, context precision 1.00. Architecture: query, prompt-injection guard, Qdrant semantic cache, supervisor, three workers (Corrective RAG, NL-to-SQL, human-in-the-loop), validator, answer. Inside the CRAG worker: hybrid dense + BM25 retrieval, CrossEncoder rerank, LLM grader with query rewrite." src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/rag-pipeline-dark.svg" width="100%"></picture></a>
 
 <p>
 <a href="https://github.com/SahajIVVIX-1/open-env-nuclei"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/card-openenv-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/card-openenv-light.svg"><img alt="OpenEnv RL data-cleaning agent: a Llama 3 agent in a custom Q-Learning environment" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/card-openenv-dark.svg" width="49%"></picture></a>
@@ -136,18 +127,11 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-signals-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-signals-light.svg"><img alt="06 Signals" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-signals-dark.svg" width="100%"></picture>
 
 
-<div align="center">
-
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api?username=SahajIVVIX-1&show_icons=true&count_private=true&include_all_commits=true&hide_border=true&bg_color=141413&title_color=D97757&text_color=F5F4EE&icon_color=D97757&ring_color=D97757"><source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api?username=SahajIVVIX-1&show_icons=true&count_private=true&include_all_commits=true&hide_border=true&bg_color=FAF9F5&title_color=BD5A37&text_color=1A1915&icon_color=BD5A37&ring_color=BD5A37"><img alt="GitHub stats" src="https://github-readme-stats.vercel.app/api?username=SahajIVVIX-1&show_icons=true&count_private=true&include_all_commits=true&hide_border=true&bg_color=141413&title_color=D97757&text_color=F5F4EE&icon_color=D97757&ring_color=D97757" height="165"></picture>
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=SahajIVVIX-1&layout=compact&langs_count=8&hide_border=true&bg_color=141413&title_color=D97757&text_color=F5F4EE"><source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=SahajIVVIX-1&layout=compact&langs_count=8&hide_border=true&bg_color=FAF9F5&title_color=BD5A37&text_color=1A1915"><img alt="Top languages" src="https://github-readme-stats.vercel.app/api/top-langs/?username=SahajIVVIX-1&layout=compact&langs_count=8&hide_border=true&bg_color=141413&title_color=D97757&text_color=F5F4EE" height="165"></picture>
-
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com?user=SahajIVVIX-1&hide_border=true&background=141413&ring=D97757&fire=D97757&currStreakNum=F5F4EE&sideNums=F5F4EE&currStreakLabel=D97757&sideLabels=A8A598&dates=A8A598&stroke=35332D"><source media="(prefers-color-scheme: light)" srcset="https://streak-stats.demolab.com?user=SahajIVVIX-1&hide_border=true&background=FAF9F5&ring=BD5A37&fire=BD5A37&currStreakNum=1A1915&sideNums=1A1915&currStreakLabel=BD5A37&sideLabels=5C5A52&dates=5C5A52&stroke=DCD7CA"><img alt="GitHub streak" src="https://streak-stats.demolab.com?user=SahajIVVIX-1&hide_border=true&background=141413&ring=D97757&fire=D97757&currStreakNum=F5F4EE&sideNums=F5F4EE&currStreakLabel=D97757&sideLabels=A8A598&dates=A8A598&stroke=35332D"></picture>
-
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=SahajIVVIX-1&hide_border=true&area=true&bg_color=141413&color=A8A598&line=D97757&point=F5F4EE&area_color=D97757"><source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=SahajIVVIX-1&hide_border=true&area=true&bg_color=FAF9F5&color=5C5A52&line=BD5A37&point=1A1915&area_color=BD5A37"><img alt="Contribution activity graph" src="https://github-readme-activity-graph.vercel.app/graph?username=SahajIVVIX-1&hide_border=true&area=true&bg_color=141413&color=A8A598&line=D97757&point=F5F4EE&area_color=D97757" width="100%"></picture>
-
-<a href="https://leetcode.com/sahajs59"><picture><source media="(prefers-color-scheme: dark)" srcset="https://leetcard.jacoblin.cool/sahajs59?theme=dark&font=Fira%20Code&ext=heatmap"><source media="(prefers-color-scheme: light)" srcset="https://leetcard.jacoblin.cool/sahajs59?theme=light&font=Fira%20Code&ext=heatmap"><img alt="LeetCode stats" src="https://leetcard.jacoblin.cool/sahajs59?theme=dark&font=Fira%20Code&ext=heatmap"></picture></a>
-
-</div>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/light_mode.svg">
+  <img alt="Live GitHub telemetry: commits, repositories, stars, followers and lines of code, refreshed daily by GitHub Actions" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg" width="100%">
+</picture>
 
 <br/>
 
@@ -162,7 +146,5 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 <a href="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/Resume_WIcon.pdf"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-resume-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-resume-light.svg"><img alt="Résumé" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-resume-dark.svg" height="44"></picture></a>
 <a href="https://leetcode.com/sahajs59"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-leetcode-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-leetcode-light.svg"><img alt="LeetCode" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-leetcode-dark.svg" height="44"></picture></a>
 
-<br/><br/>
-<img src="https://komarev.com/ghpvc/?username=SahajIVVIX-1&style=flat-square&color=D97757&label=profile+views" alt="profile views"/>
 
 </div>
