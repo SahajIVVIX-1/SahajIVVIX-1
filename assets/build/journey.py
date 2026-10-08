@@ -32,7 +32,7 @@ VIEW = {"card-openenv": (584, 404), "card-dcgan": (584, 404)}  # others are 1200
 BRIDGE = {"section-about": (170, 1129), "section-experience": (255, 1020), "section-work": (303, 1067),
           "section-toolkit": (190, 1051), "section-recognition": (270, 926), "section-signals": (185, 1012)}
 
-SPEED = 175.0  # README units per second while walking
+SPEED = 200.0  # README units per second while walking
 T_TURN = 0.18
 
 
@@ -58,51 +58,141 @@ UP, DOWN, LEFT, RIGHT = 0, 180, -90, 90
 B = 6  # inset so the feet sit on a border drawn at 0.5 / W-0.5
 
 
+# ── walking on type: the top edge of every glyph ───────────────────────────
+import os as _os
+from fontTools.ttLib import TTFont as _TTFont
+from fontTools.pens.boundsPen import BoundsPen as _BoundsPen
+
+_FONTS = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "fonts")
+_FILES = {("sans", 400, "normal"): "hanken-grotesk-latin-400-normal.woff2",
+          ("sans", 600, "normal"): "hanken-grotesk-latin-600-normal.woff2",
+          ("serif", 400, "normal"): "newsreader-latin-400-normal.woff2",
+          ("serif", 400, "italic"): "newsreader-latin-400-italic.woff2"}
+_fcache = {}
+
+
+def glyph_tops(runs, role, size, x0, baseline, ls=0.0):
+    """runs: [(text, weight, style)] laid out from x0. Returns [(x_left, x_right, y_top)] per inked glyph."""
+    out, x = [], x0
+    for text, wgt, st in runs:
+        key = (role, wgt, st)
+        if key not in _fcache:
+            f = _TTFont(_os.path.join(_FONTS, _FILES[key]))
+            _fcache[key] = (f, f.getGlyphSet(), f.getBestCmap(), f["head"].unitsPerEm)
+        f, gs, cmap, upm = _fcache[key]
+        k = size / upm
+        for ch in text:
+            gname = cmap.get(ord(ch))
+            adv = f["hmtx"][gname][0] if gname else upm * 0.5
+            if gname and not ch.isspace():
+                pen = _BoundsPen(gs)
+                gs[gname].draw(pen)
+                if pen.bounds:
+                    xmin, _, xmax, ymax = pen.bounds
+                    out.append((x + xmin * k, x + xmax * k, baseline - ymax * k))
+            x += adv * k + ls
+    return out
+
+
 def route():
-    """[(kind, (x, y), normal)] in README units. kind: walk | leap | fall."""
+    """[(kind, (x, y), normal)] in README units. kind: walk | hop | leap | fall.
+    Besides borders and rules, the crew runs across the tops of letters (names,
+    titles, tagline), the impact numbers and the insights tiles."""
     r = []
     def add(kind, name, lx, ly, n):
         r.append((kind, g(name, lx, ly), n))
-    # hero: start at the top-left, crawl down the left border, along the bottom, out at the bottom-right
+
+    def letters(name, tops, reverse=False, first="leap"):
+        seq = list(reversed(tops)) if reverse else tops
+        # merge neighbouring glyphs of similar height into one stretch, so the
+        # walk follows the word shape without a keyframe per letter
+        merged = []
+        for xa, xb, top in seq:
+            if merged:
+                pa, pb, pt = merged[-1]
+                gap = (xa - pb) if not reverse else (pa - xb)
+                if gap < 9 and abs(top - pt) < 7:
+                    merged[-1] = (min(pa, xa), max(pb, xb), min(pt, top))
+                    continue
+            merged.append((xa, xb, top))
+        seq = merged
+        prev = None
+        for i, (xa, xb, top) in enumerate(seq):
+            a_, b_ = (xb - 1.5, xa + 1.5) if reverse else (xa + 1.5, xb - 1.5)
+            if i == 0:
+                kind = first
+            else:
+                gap = abs(a_ - prev[0])
+                kind = "walk" if gap < 4 and abs(top - prev[1]) < 2.5 else "hop"
+            add(kind, name, a_, top, UP)
+            if abs(b_ - a_) > 1:
+                add("walk", name, b_, top, UP)
+            prev = (b_, top)
+
+    def title(sec, text):  # section titles: serif 40 at x 40, baseline 58
+        return glyph_tops([(text, 400, "normal")], "serif", 40, 40, 58, -0.5)
+
+    # ── hero: down the left border, then over the name and the tagline ──
     add("start", "hero", 0.5, 30, RIGHT)
-    add("walk", "hero", 0.5, 452, RIGHT)
-    add("walk", "hero", 18, 469.5, UP)
+    add("walk", "hero", 0.5, 112, RIGHT)
+    letters("hero", glyph_tops([("Sahaj ", 400, "normal"), ("Saliya", 400, "italic")], "serif", 96, 68, 196, -2))
+    letters("hero", glyph_tops([("AI Engineer & Researcher building agents that", 400, "normal")], "sans", 25, 72, 248), reverse=True)
+    letters("hero", glyph_tops([("retrieve, reason and learn.", 400, "normal")], "sans", 25, 72, 282))
+    add("leap", "hero", 460, 469.5, UP)
     add("walk", "hero", 1170, 469.5, UP)
-    # drop off the bottom-right corner past the buttons, onto the impact strip's right border
-    add("fall", "impact", 1199.5, 22, LEFT)
-    add("walk", "impact", 1199.5, 132, LEFT)
-    # leap onto the About rule, cross it right to left
-    add("leap", "section-about", 1129 - 30, 48, UP)
-    add("walk", "section-about", 170 + 26, 48, UP)
-    # drop behind the About paragraph and land on the Experience rule
-    add("fall", "section-experience", 255 + 30, 48, UP)
-    add("walk", "section-experience", 1020 - 30, 48, UP)
-    # hop onto the timeline rail, run to its end, then crawl down the right card
-    add("leap", "experience", 1110, 16, UP)
+    # ── impact: drop onto the numbers and skip across them right to left ──
+    nums = ["0.81", "1.00", "37%", "2"]
+    for i in reversed(range(4)):
+        tops = glyph_tops([(nums[i], 400, "normal")], "serif", 52, i * 300 + 34, 78, -1)
+        letters("impact", tops, reverse=True, first="fall" if i == 3 else "leap")
+    # ── About: over the title, then along the rule ──
+    letters("section-about", title("section-about", "About"))
+    add("hop", "section-about", 170 + 26, 48, UP)
+    add("walk", "section-about", 1129 - 30, 48, UP)
+    # drop behind the About paragraph onto the Experience rule, then over its title
+    add("fall", "section-experience", 1020 - 30, 48, UP)
+    add("walk", "section-experience", 255 + 26, 48, UP)
+    letters("section-experience", title("section-experience", "Experience"), reverse=True, first="hop")
+    # onto the timeline rail, all the way across, then down the right card
+    add("leap", "experience", 22, 16, UP)
     add("walk", "experience", 1186, 16, UP)
     add("leap", "experience", 1199.5, 96, LEFT)
     add("walk", "experience", 1199.5, 372, LEFT)
-    # leap onto the Selected work rule, cross it to the left
+    # ── Selected work: rule, title, then the RAG headline and subtitle ──
     add("leap", "section-work", 1067 - 40, 48, UP)
-    add("walk", "section-work", 303 + 30, 48, UP)
-    # jump down onto the RAG card's left border and crawl all the way down the left column
-    add("leap", "rag-pipeline", 0.5, 46, RIGHT)
+    add("walk", "section-work", 303 + 26, 48, UP)
+    letters("section-work", title("section-work", "Selected work"), reverse=True, first="hop")
+    letters("rag-pipeline", glyph_tops([("Enterprise Agentic RAG Orchestrator", 600, "normal")], "sans", 34, 40, 104, -0.6))
+    letters("rag-pipeline", glyph_tops([("Production-grade multi-agent RAG with a self-correcting retrieval loop.", 400, "italic")],
+                                       "serif", 20, 40, 138), reverse=True)
+    add("leap", "rag-pipeline", 0.5, 170, RIGHT)
     add("walk", "card-microplastic", 0.5, 132, RIGHT)
-    # leap over the Toolkit title onto its rule, cross it to the right
-    add("leap", "section-toolkit", 190 + 50, 48, UP)
+    # ── Toolkit: over the title, along the rule, down the right edge ──
+    letters("section-toolkit", title("section-toolkit", "Toolkit"))
+    add("hop", "section-toolkit", 190 + 26, 48, UP)
     add("walk", "section-toolkit", 1051 - 30, 48, UP)
-    # drop onto the toolkit's first row rule, run to the edge, crawl down it
     add("leap", "toolkit", 1150, 92, UP)
     add("walk", "toolkit", 1184, 92, UP)
     add("walk", "toolkit", 1199.5, 108, LEFT)
     add("walk", "toolkit", 1199.5, 610, LEFT)
-    # Recognition rule right to left, then drop behind the table onto the Signals rule
+    # ── Recognition rule and title, drop behind the table onto the Signals title and rule ──
     add("leap", "section-recognition", 926 - 30, 48, UP)
-    add("walk", "section-recognition", 270 + 30, 48, UP)
-    add("fall", "section-signals", 185 + 30, 48, UP)
+    add("walk", "section-recognition", 270 + 26, 48, UP)
+    letters("section-recognition", title("section-recognition", "Recognition"), reverse=True, first="hop")
+    letters("section-signals", title("section-signals", "Signals"), first="fall")
+    add("hop", "section-signals", 185 + 26, 48, UP)
     add("walk", "section-signals", 1012 - 30, 48, UP)
-    # down the right border of the telemetry console, the insights board and the footer
+    # ── telemetry console's right border, then the insights tiles and panels ──
     add("leap", "telemetry", 1199.5, 70, LEFT)
+    add("walk", "insights", 1199.5, 14, LEFT)
+    kw = (1200 - 64 - 4 * 12) / 5
+    tiles = [(32 + i * (kw + 12) + 14, 32 + i * (kw + 12) + kw - 14, 32.5) for i in range(5)]
+    letters("insights", tiles, reverse=True, first="hop")
+    add("leap", "insights", 46, 156.5, UP)
+    add("walk", "insights", 874, 156.5, UP)
+    add("hop", "insights", 914, 156.5, UP)
+    add("walk", "insights", 1154, 156.5, UP)
+    add("hop", "insights", 1199.5, 190, LEFT)
     add("walk", "footer", 1199.5, 232, LEFT)
     add("walk", "footer", 1182, 249.5, UP)
     add("walk", "footer", 30, 249.5, UP)
@@ -135,10 +225,14 @@ def frames():
             t += dur
             out.append((t, nx, ny, nn, flip))
         else:
-            hop = 26 if kind == "leap" else 10
-            dur = 0.55 + dist / 900 if kind == "leap" else 0.4 + math.sqrt(max(dy, 1)) / 26
-            out.append((t + 0.12, x, y, n, flip))  # crouch beat before the jump
-            t += 0.12
+            if kind == "hop":  # a quick skip from one letter or tile to the next
+                kind, hop, dur = "leap", 7 + min(dist, 40) / 6, 0.2 + dist / 700
+            else:
+                hop = 26 if kind == "leap" else 10
+                dur = 0.55 + dist / 900 if kind == "leap" else 0.4 + math.sqrt(max(dy, 1)) / 26
+            beat = 0.12 if dur > 0.4 else 0.03
+            out.append((t + beat, x, y, n, flip))  # crouch beat before the jump
+            t += beat
             steps = 10
             for i in range(1, steps + 1):
                 u = i / steps
@@ -149,8 +243,8 @@ def frames():
                 out.append((t + dur * u, px, py, ang, 1 if dx >= 0 else -1))
             flip = 1 if dx >= 0 else -1
             t += dur
-            out.append((t + 0.1, nx, ny, nn, flip))  # landing beat
-            t += 0.1
+            out.append((t + beat, nx, ny, nn, flip))  # landing beat
+            t += beat
         x, y, n = nx, ny, nn
     return out, t + 0.6
 
@@ -269,7 +363,7 @@ TRACKS = [track(p) for p in PIECES]
 
 
 def _pct(t):
-    return f"{100 * t / P:.3f}%"
+    return f"{100 * t / P:.3f}".rstrip("0").rstrip(".") + "%"
 
 
 def attach(s, name):
@@ -303,7 +397,8 @@ def attach(s, name):
                 continue
             last_p = p
             lx, ly = loc(x, y)
-            mv.append(f"{p}{{transform:translate({lx:.1f}px,{ly:.1f}px) rotate({ang:.1f}deg)}}")
+            rot = f" rotate({ang:.0f}deg)" if round(ang) else ""
+            mv.append(f"{p}{{transform:translate({lx:.0f}px,{ly:.0f}px){rot}}}")
         # visibility: hidden while the mascot is far from this image
         shown = None
         for i, f in enumerate(tr):
