@@ -1,3 +1,6 @@
 python-dateutil
 requests
 lxml
+fonttools
+brotli
+pillow

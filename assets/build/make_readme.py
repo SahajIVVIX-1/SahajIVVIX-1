@@ -155,6 +155,8 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
   <img alt="Live GitHub telemetry: commits, repositories, stars, followers and lines of code, refreshed every 15 minutes by GitHub Actions" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg" width="100%">
 </picture>
 
+{pic("insights", "A year of GitHub activity: contribution heatmap, streaks, weekly rhythm, language mix, top repositories by commits and contribution mix, rebuilt every 15 minutes from the GitHub GraphQL API", width="100%")}
+
 <br/>
 
 <div align="center">
