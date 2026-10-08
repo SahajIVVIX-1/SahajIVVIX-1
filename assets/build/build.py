@@ -569,43 +569,62 @@ def microplastic(theme):
 
 # ── 7. toolkit ──────────────────────────────────────────────────────────────
 TOOLKIT = [
-    ("GenAI & agents", ["LangChain", "LangGraph", "CrewAI", "AWS Bedrock", "HF Transformers", "Pydantic", "RAGAS"]),
+    ("GenAI & Agents", ["LangChain", "LangGraph", "CrewAI", "AWS Bedrock", "HF Transformers", "Pydantic", "RAGAS"]),
     ("ML · DL · RL", ["PyTorch", "TensorFlow", "scikit-learn", "XGBoost", "CatBoost", "LightGBM", "Q-Learning", "SHAP", "LIME"]),
-    ("Retrieval & data", ["Qdrant", "ChromaDB", "PostgreSQL", "MongoDB", "Redis", "Hadoop", "SQL"]),
+    ("Retrieval & Data", ["Qdrant", "ChromaDB", "PostgreSQL", "MongoDB", "Redis", "Hadoop", "SQL"]),
     ("Vision & OCR", ["OpenCV", "YOLOv11", "Kraken OCR", "ComfyUI"]),
-    ("MLOps & infra", ["MLflow", "Docker", "Kubernetes", "FastAPI", "Flask", "Streamlit", "HF Spaces", "GitHub Actions", "AWS", "GCP", "Linux"]),
+    ("MLOps & Infra", ["MLflow", "Docker", "Kubernetes", "FastAPI", "Flask", "Streamlit", "HF Spaces", "GitHub Actions", "AWS", "GCP", "Linux"]),
     ("Languages", ["Python", "C++", "SQL", "MATLAB"]),
 ]
 
 
 def toolkit(theme):
-    W, labw, rowh = 1200, 200, 0
-    # lay out first to know height
-    rows, y = [], 34
+    W, labw, chip_h, gapy = 1200, 290, 36, 10
+    rows, y = [], 28
     for label, items in TOOLKIT:
         x, line = labw, []
         for it in items:
-            w = measure(it, "sans", 400, 14.5) + 28
-            if x + w > W - 24:
-                y += 42; x = labw
-            line.append((x, y, w, it)); x += w + 8
-        rows.append((label, line, y)); y += 58
-    H = y - 10
+            w = measure(it, "sans", 400, 15.5) + 32
+            if x + w > W - 8:
+                y += chip_h + gapy; x = labw
+            line.append((x, y, w, it)); x += w + 10
+        top = line[0][1]
+        rows.append((label, items, line, top, y + chip_h))
+        y += chip_h + 56
+    H = y - 46
     s = Svg(W, H, "Toolkit: " + "; ".join(f"{l}: {', '.join(i)}" for l, i in TOOLKIT), theme)
     t = s.t
-    s.css.append(".pop{opacity:0;animation:pop .5s cubic-bezier(.2,.7,.2,1) forwards}"
-                 "@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}")
+    n, step = len(rows), 1.4
+    cycle = n * step
+    on = 100 / n
+    s.css.append(".pop{opacity:0;animation:pop .55s cubic-bezier(.2,.7,.2,1) forwards}"
+                 "@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}"
+                 f".hl{{opacity:0;animation:hl {cycle}s ease-in-out infinite}}"
+                 f"@keyframes hl{{0%{{opacity:0}}{on*0.25:.2f}%{{opacity:1}}{on*0.85:.2f}%{{opacity:1}}{on*1.1:.2f}%{{opacity:0}}100%{{opacity:0}}}}"
+                 ".slide{opacity:0;animation:slide .7s cubic-bezier(.2,.7,.2,1) forwards}"
+                 "@keyframes slide{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}")
     k = 0
-    for ri, (label, line, ylast) in enumerate(rows):
-        y0 = line[0][1]
+    for ri, (label, items, line, top, bottom) in enumerate(rows):
+        mid = (top + bottom) / 2
         if ri:
-            s.add(f'<line x1="0" y1="{y0-22}" x2="{W}" y2="{y0-22}" stroke="{t["line"]}"/>')
-        s.text(0, y0 + 19, label.upper(), "mono", 12, 500, fill="accent" if ri == 0 else "faint", ls=0.6)
-        for (x, y, w, it) in line:
-            s.add(f'<g class="pop" style="animation-delay:{0.05 + k*0.035:.2f}s">'
-                  f'<rect x="{x}" y="{y}" width="{w:.1f}" height="30" rx="8" fill="{t["surface"]}" stroke="{t["line"]}"/>')
-            s.text(x + w / 2, y + 20, it, "sans", 14.5, 400, fill="text", anchor="middle")
+            s.add(f'<line x1="0" y1="{top-28}" x2="{W}" y2="{top-28}" stroke="{t["line"]}"/>')
+        # category title
+        s.add(f'<g class="slide" style="animation-delay:{0.1 + ri*0.12:.2f}s">')
+        s.text(20, mid - 8, f"{ri+1:02d}", "mono", 12.5, 500, fill="accent", ls=0.6)
+        s.text(52, mid - 4, label, "serif", 27, 400, fill="text", ls=-0.3)
+        s.text(52, mid + 20, f"{len(items)} tools", "mono", 11.5, 400, fill="faint", ls=0.4)
+        s.add("</g>")
+        for (x, cy, w, it) in line:
+            s.add(f'<g class="pop" style="animation-delay:{0.25 + k*0.03:.2f}s">'
+                  f'<rect x="{x}" y="{cy}" width="{w:.1f}" height="{chip_h}" rx="9" fill="{t["surface"]}" stroke="{t["line"]}"/>')
+            s.text(x + w / 2, cy + 23.5, it, "sans", 15.5, 400, fill="text", anchor="middle")
             s.add("</g>"); k += 1
+        # looping highlight: one row lights up at a time
+        s.add(f'<g class="hl" style="animation-delay:{1.6 + ri*step:.2f}s">'
+              f'<rect x="0" y="{top-6}" width="4" height="{bottom-top+12}" rx="2" fill="{t["accent"]}"/>')
+        for (x, cy, w, it) in line:
+            s.add(f'<rect x="{x}" y="{cy}" width="{w:.1f}" height="{chip_h}" rx="9" fill="none" stroke="{t["accent"]}" stroke-width="1.4"/>')
+        s.add("</g>")
     return s
 
 
