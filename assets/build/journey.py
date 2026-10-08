@@ -14,6 +14,8 @@ Only CSS keyframes are used, so it plays inside GitHub's image proxy, and under
 prefers-reduced-motion the mascot stays hidden.
 """
 import math
+import random
+from layout import toolkit_layout
 
 SCALE = 1200 / 830
 _PX = {  # name: (x, y, w, h) in px at an 830px column, top of hero = y 53
@@ -71,15 +73,24 @@ _FILES = {("sans", 400, "normal"): "hanken-grotesk-latin-400-normal.woff2",
 _fcache = {}
 
 
+def _font(key):
+    if key not in _fcache:
+        f = _TTFont(_os.path.join(_FONTS, _FILES[key]))
+        _fcache[key] = (f, f.getGlyphSet(), f.getBestCmap(), f["head"].unitsPerEm)
+    return _fcache[key]
+
+
+def advance(text, role="sans", weight=400, size=16, style="normal"):
+    """same metric as build.measure()"""
+    f, _, cmap, upm = _font((role, weight, style))
+    return sum(f["hmtx"][cmap[ord(c)]][0] if ord(c) in cmap else upm * 0.5 for c in text) * size / upm
+
+
 def glyph_tops(runs, role, size, x0, baseline, ls=0.0):
     """runs: [(text, weight, style)] laid out from x0. Returns [(x_left, x_right, y_top)] per inked glyph."""
     out, x = [], x0
     for text, wgt, st in runs:
-        key = (role, wgt, st)
-        if key not in _fcache:
-            f = _TTFont(_os.path.join(_FONTS, _FILES[key]))
-            _fcache[key] = (f, f.getGlyphSet(), f.getBestCmap(), f["head"].unitsPerEm)
-        f, gs, cmap, upm = _fcache[key]
+        f, gs, cmap, upm = _font((role, wgt, st))
         k = size / upm
         for ch in text:
             gname = cmap.get(ord(ch))
@@ -102,7 +113,7 @@ def route():
     def add(kind, name, lx, ly, n):
         r.append((kind, g(name, lx, ly), n))
 
-    def letters(name, tops, reverse=False, first="leap"):
+    def letters(name, tops, reverse=False, first="leap", step="hop"):
         seq = list(reversed(tops)) if reverse else tops
         # merge neighbouring glyphs of similar height into one stretch, so the
         # walk follows the word shape without a keyframe per letter
@@ -123,7 +134,7 @@ def route():
                 kind = first
             else:
                 gap = abs(a_ - prev[0])
-                kind = "walk" if gap < 4 and abs(top - prev[1]) < 2.5 else "hop"
+                kind = "walk" if gap < 4 and abs(top - prev[1]) < 2.5 else step if gap < 150 else "leap"
             add(kind, name, a_, top, UP)
             if abs(b_ - a_) > 1:
                 add("walk", name, b_, top, UP)
@@ -173,10 +184,43 @@ def route():
     letters("section-toolkit", title("section-toolkit", "Toolkit"))
     add("hop", "section-toolkit", 190 + 26, 48, UP)
     add("walk", "section-toolkit", 1051 - 30, 48, UP)
-    add("leap", "toolkit", 1150, 92, UP)
-    add("walk", "toolkit", 1184, 92, UP)
-    add("walk", "toolkit", 1199.5, 108, LEFT)
-    add("walk", "toolkit", 1199.5, 610, LEFT)
+    # then zig-zag through every category: chip tops, the category name, the
+    # divider below, picking a different way through each row
+    rnd = random.Random(11)
+    rows, _ = toolkit_layout(lambda it: advance(it, "sans", 400, 15.5))
+    cx, first = 1021, "fall"
+    for ri, (label, _, line, top, bottom) in enumerate(rows):
+        # chips on the row's first line (wrapped lines sit too close below it)
+        chips = [(x + 9, x + w - 9, top - 0.5) for x, y, w, _ in line if y == top]
+        if ri:  # skip a few chips at random; row 1 has no headroom for the jump arc
+            kept, skipped = [], False
+            for i, c in enumerate(chips):  # never two in a row, so a skip stays a short hop
+                skipped = not skipped and 0 < i < len(chips) - 1 and rnd.random() < 0.3
+                if not skipped:
+                    kept.append(c)
+            chips = kept
+        name = [gt for gt in glyph_tops([(label, 400, "normal")], "serif", 27, 52, (top + bottom) / 2 - 4, -0.3)
+                if gt[2] > 27]  # letters too close to the image top would cut off the antenna
+        step = "hop" if ri else "walk"
+        if cx > 600:   # coming from the right: chips first, then the name
+            letters("toolkit", chips, reverse=True, first=first, step=step)
+            if name:
+                letters("toolkit", name, reverse=True, first="hop")
+            cx = 60
+        else:
+            if name:
+                letters("toolkit", name, first=first)
+            letters("toolkit", chips, first="hop", step=step)
+            cx = chips[-1][1]
+        if ri + 1 < len(rows):
+            dy = rows[ri + 1][3] - 28
+            add("fall", "toolkit", cx, dy - 0.5, UP)
+            # stroll a little along the divider, or run right across it
+            nxt = rows[ri + 1][2]
+            far = max(x + w for x, y, w, _ in nxt if y == nxt[0][1]) - 12
+            cx = (far if cx < 600 else 50) if rnd.random() < 0.5 else max(30, min(far, cx + rnd.choice((-1, 1)) * rnd.uniform(60, 200)))
+            add("walk", "toolkit", cx, dy - 0.5, UP)
+            first = "hop"
     # ── Recognition rule and title, drop behind the table onto the Signals title and rule ──
     add("leap", "section-recognition", 926 - 30, 48, UP)
     add("walk", "section-recognition", 270 + 26, 48, UP)
@@ -199,6 +243,13 @@ def route():
     add("walk", "footer", 1182, 249.5, UP)
     add("walk", "footer", 30, 249.5, UP)
     return r
+
+
+def _image_at(x, y):
+    for name in _PX:
+        ox, oy, w, h = rect(name)
+        if ox - 0.5 <= x <= ox + w + 0.5 and oy - 0.5 <= y <= oy + h + 0.5:
+            return name
 
 
 def frames():
@@ -232,6 +283,12 @@ def frames():
             else:
                 hop = 26 if kind == "leap" else 10
                 dur = 0.55 + dist / 900 if kind == "leap" else 0.4 + math.sqrt(max(dy, 1)) / 26
+            # keep the arc inside the picture: a jump within one image never lifts the antenna past its top
+            box = _image_at(x, y)
+            if box and box == _image_at(nx, ny) and n == 0 and nn == 0:
+                k = scale_of(box)
+                room = (min(y, ny) - rect(box)[1]) * k - 27
+                hop = max(1.5, min(hop, room / k)) if room < hop * k else hop
             beat = 0.12 if dur > 0.4 else 0.03
             out.append((t + beat, x, y, n, flip))  # crouch beat before the jump
             t += beat

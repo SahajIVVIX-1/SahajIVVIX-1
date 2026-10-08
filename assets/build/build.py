@@ -13,6 +13,7 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 from PIL import Image
 import journey
+from layout import TOOLKIT, TK_W, TK_CHIP_H, toolkit_layout
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.dirname(HERE)  # assets/
@@ -570,30 +571,9 @@ def microplastic(theme):
 
 
 # ── 7. toolkit ──────────────────────────────────────────────────────────────
-TOOLKIT = [
-    ("GenAI & Agents", ["LangChain", "LangGraph", "CrewAI", "AWS Bedrock", "HF Transformers", "Pydantic", "RAGAS"]),
-    ("ML · DL · RL", ["PyTorch", "TensorFlow", "scikit-learn", "XGBoost", "CatBoost", "LightGBM", "Q-Learning", "SHAP", "LIME"]),
-    ("Retrieval & Data", ["Qdrant", "ChromaDB", "PostgreSQL", "MongoDB", "Redis", "Hadoop", "SQL"]),
-    ("Vision & OCR", ["OpenCV", "YOLOv11", "Kraken OCR", "ComfyUI"]),
-    ("MLOps & Infra", ["MLflow", "Docker", "Kubernetes", "FastAPI", "Flask", "Streamlit", "HF Spaces", "GitHub Actions", "AWS", "GCP", "Linux"]),
-    ("Languages", ["Python", "C++", "SQL", "MATLAB"]),
-]
-
-
 def toolkit(theme):
-    W, labw, chip_h, gapy = 1200, 290, 36, 10
-    rows, y = [], 28
-    for label, items in TOOLKIT:
-        x, line = labw, []
-        for it in items:
-            w = measure(it, "sans", 400, 15.5) + 32
-            if x + w > W - 8:
-                y += chip_h + gapy; x = labw
-            line.append((x, y, w, it)); x += w + 10
-        top = line[0][1]
-        rows.append((label, items, line, top, y + chip_h))
-        y += chip_h + 56
-    H = y - 46
+    W, chip_h = TK_W, TK_CHIP_H
+    rows, H = toolkit_layout(lambda it: measure(it, "sans", 400, 15.5))
     s = Svg(W, H, "Toolkit: " + "; ".join(f"{l}: {', '.join(i)}" for l, i in TOOLKIT), theme)
     t = s.t
     n, step = len(rows), 1.4
