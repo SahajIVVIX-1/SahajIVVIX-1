@@ -146,7 +146,10 @@ def recursive_loc(owner, repo_name, data, cache_comment, addition_total=0, delet
     variables = {'repo_name': repo_name, 'owner': owner, 'cursor': cursor}
     request = requests.post('https://api.github.com/graphql', json={'query': query, 'variables':variables}, headers=HEADERS) # I cannot use simple_request(), because I want to save the file before raising Exception
     if request.status_code == 200:
-        if request.json()['data']['repository']['defaultBranchRef'] != None: # Only count commits if repo isn't empty
+        repository = (request.json().get('data') or {}).get('repository')
+        if repository is None: # the token can't see this repo
+            return 0
+        if repository['defaultBranchRef'] != None: # Only count commits if repo isn't empty
             return loc_counter_one_repo(owner, repo_name, data, cache_comment, request.json()['data']['repository']['defaultBranchRef']['target']['history'], addition_total, deletion_total, my_commits)
         else: return 0
     force_close_file(data, cache_comment) # saves what is currently in the file before this program crashes
@@ -161,7 +164,7 @@ def loc_counter_one_repo(owner, repo_name, data, cache_comment, history, additio
     only adds the LOC value of commits authored by me
     """
     for node in history['edges']:
-        if node['node']['author']['user'] == OWNER_ID:
+        if node and node.get('node') and (node['node'].get('author') or {}).get('user') == OWNER_ID:
             my_commits += 1
             addition_total += node['node']['additions']
             deletion_total += node['node']['deletions']
@@ -212,7 +215,9 @@ def loc_query(owner_affiliation, comment_size=0, force_cache=False, cursor=None,
         edges += request.json()['data']['user']['repositories']['edges']            # Add on to the LoC count
         return loc_query(owner_affiliation, comment_size, force_cache, request.json()['data']['user']['repositories']['pageInfo']['endCursor'], edges)
     else:
-        return cache_builder(edges + request.json()['data']['user']['repositories']['edges'], comment_size, force_cache)
+        all_edges = edges + request.json()['data']['user']['repositories']['edges']
+        all_edges = [e for e in all_edges if e and e.get('node')]  # drop repos the token can't see
+        return cache_builder(all_edges, comment_size, force_cache)
 
 
 def cache_builder(edges, comment_size, force_cache, loc_add=0, loc_del=0):
@@ -312,7 +317,9 @@ def stars_counter(data):
     Count total stars in repositories owned by me
     """
     total_stars = 0
-    for node in data: total_stars += node['node']['stargazers']['totalCount']
+    for node in data:
+        if node and node.get('node'):  # repos the token can't see come back as null
+            total_stars += node['node']['stargazers']['totalCount']
     return total_stars
 
 
