@@ -155,46 +155,206 @@ def frames():
     return out, t + 0.6
 
 
-FRAMES, PERIOD = frames()
+def _densify(fr, step=120.0):
+    """split long straight runs so every image they pass through gets keyframes"""
+    out = [fr[0]]
+    for a, b in zip(fr, fr[1:]):
+        n = int(math.hypot(b[1] - a[1], b[2] - a[2]) // step)
+        for i in range(1, n + 1):
+            u = i / (n + 1)
+            out.append((a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u,
+                        a[3] + (b[3] - a[3]) * u, a[4]))
+        out.append(b)
+    return out
+
+
+FRAMES, _END = frames()
+FRAMES = _densify(FRAMES)
+_T0 = FRAMES[0][0]
+D = _END - _T0          # one full traversal of the route, in seconds
+_TAUS = [f[0] - _T0 for f in FRAMES]
+
+# ── the crew ────────────────────────────────────────────────────────────────
+# Five mascots share the route. Each one walks it like a ghost bouncing between
+# the two ends; where two ghosts would pass through each other, the mascots
+# bounce off instead (identical speeds make that the same set of positions with
+# the labels swapped). So mascot k is simply the k-th ghost in route order: it
+# roams back and forth between its neighbours, collides head-on, turns around,
+# and the whole dance repeats exactly every 2*D seconds with no reset.
+CREW = ["accent", "blue", "olive", "gold", "plum"]
+N = len(CREW)
+P = 2 * D
+EXTRA = {"#141413": dict(gold="#D4B06A", plum="#B48EAD"), "#FAF9F5": dict(gold="#8C6A1F", plum="#7A4F74")}
+
+
+def at(tau):
+    """route position at route-time tau: (x, y, angle)"""
+    tau = min(max(tau, 0.0), D)
+    lo, hi = 0, len(_TAUS) - 1
+    while hi - lo > 1:
+        mid = (lo + hi) // 2
+        if _TAUS[mid] <= tau:
+            lo = mid
+        else:
+            hi = mid
+    a, b = FRAMES[lo], FRAMES[hi]
+    span = _TAUS[hi] - _TAUS[lo]
+    u = 0.0 if span <= 1e-9 else (tau - _TAUS[lo]) / span
+    return a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u, a[3] + (b[3] - a[3]) * u
+
+
+def _ghost(j, t):
+    u = (t / P + j / N + 0.037 * j) % 1.0
+    return 2 * D * u if u < 0.5 else 2 * D * (1 - u)
+
+
+def simulate(dt=0.01):
+    steps = int(P / dt)
+    order_prev, prev = None, None
+    pieces = [[] for _ in range(N)]   # per mascot: [(t, tau)] breakpoints
+    hits = []                         # (t, tau, k) mascots k and k+1 collide
+    slope_prev = [None] * N
+    for i in range(steps + 1):
+        t = i * dt
+        gs = sorted(_ghost(j, t) for j in range(N))
+        order = sorted(range(N), key=lambda j: _ghost(j, t))
+        if prev is not None:
+            for k in range(N):
+                s = 1 if gs[k] > prev[k] else -1
+                if s != slope_prev[k]:
+                    pieces[k].append((t - dt, prev[k]))
+                    slope_prev[k] = s
+            if order != order_prev:
+                for k in range(N - 1):
+                    if order[k] != order_prev[k]:
+                        hits.append((t, (gs[k] + gs[k + 1]) / 2, k))
+                        break
+        prev, order_prev = gs, order
+    for k in range(N):
+        pieces[k].append((P, _ghost_sorted(k, P)))
+    return pieces, hits
+
+
+def _ghost_sorted(k, t):
+    return sorted(_ghost(j, t) for j in range(N))[k]
+
+
+def track(points):
+    """Expand a mascot's (t, tau) breakpoints into (t, x, y, angle, face) keyframes."""
+    out = []
+    for (ta, ua), (tb, ub) in zip(points, points[1:]):
+        s = 1 if ub >= ua else -1
+        inner = [u for u in _TAUS if min(ua, ub) < u < max(ua, ub)]
+        if s < 0:
+            inner.reverse()
+        for u in [ua] + inner:
+            out.append([ta + abs(u - ua), *at(u)])
+    out.append([points[-1][0], *at(points[-1][1])])
+    # facing from motion, in the mascot's own frame; hold it through pauses
+    face = 1
+    for i, f in enumerate(out):
+        nxt = out[i + 1] if i + 1 < len(out) else None
+        if nxt:
+            vx, vy = nxt[1] - f[1], nxt[2] - f[2]
+            a = math.radians(f[3])
+            lx = vx * math.cos(a) + vy * math.sin(a)
+            if abs(lx) > 0.5:
+                face = 1 if lx > 0 else -1
+        f.append(face)
+    return out
+
+
+PIECES, HITS = simulate()
+TRACKS = [track(p) for p in PIECES]
+
+
+def _pct(t):
+    return f"{100 * t / P:.3f}%"
 
 
 def attach(s, name):
-    """Add the mascot to Svg `s` (an image named `name` in LAYOUT)."""
+    """Add the crew (and their collisions) to Svg `s`, an image named `name`."""
     if name not in _PX:
         return
-    t = s.t
-    ox, oy, _, _ = rect(name)
+    t = dict(s.t, **EXTRA.get(s.t["bg"], {}))
+    ox, oy, w, h = rect(name)
     k = scale_of(name)
-    kf, last = [], None
-    for tt, x, y, ang, flip in FRAMES:
-        p = f"{100 * tt / PERIOD:.3f}%"
-        if p == last:
+    m = 70
+    near = lambda x, y: ox - m <= x <= ox + w + m and oy - m <= y <= oy + h + m
+    loc = lambda x, y: ((x - ox) * k, (y - oy) * k)
+    css = [".mjb{animation:mjb .36s ease-in-out infinite alternate}@keyframes mjb{to{transform:translateY(-1.6px)}}"
+           ".mjl{transform-box:fill-box;transform-origin:top center;animation:mjl .36s ease-in-out infinite alternate}"
+           ".mjl2{animation-direction:alternate-reverse}@keyframes mjl{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}"
+           ".mjk{animation:mjk 4.2s infinite}@keyframes mjk{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}"
+           ".mja{animation:mja 1.6s ease-in-out infinite}@keyframes mja{50%{opacity:.35}}"
+           ".bst{opacity:0}"]
+    body = []
+    for c, tr in enumerate(TRACKS):
+        flags = [near(f[1], f[2]) for f in tr]
+        if not any(flags):
             continue
-        last = p
-        lx, ly = (x - ox) * k, (y - oy) * k
-        kf.append(f"{p}{{transform:translate({lx:.1f}px,{ly:.1f}px) rotate({ang:.1f}deg) scaleX({flip})}}")
-    t0, t1 = FRAMES[0], FRAMES[-1]
-    kf.insert(0, f"0%{{transform:translate({(t0[1]-ox)*k:.1f}px,{(t0[2]-oy)*k:.1f}px) rotate({t0[3]}deg)}}")
-    kf.append(f"100%{{transform:translate({(t1[1]-ox)*k:.1f}px,{(t1[2]-oy)*k:.1f}px) rotate({t1[3]}deg) scaleX({t1[4]})}}")
-    fade = f"{100 * 0.5 / PERIOD:.3f}%"
-    s.css.append(
-        f"@keyframes mjr{{{''.join(kf)}}}"
-        f".mj{{animation:mjr {PERIOD:.2f}s linear infinite}}"
-        f".mjw{{opacity:0;animation:mjw {PERIOD:.2f}s linear infinite}}"
-        f"@keyframes mjw{{0%{{opacity:0}}{fade}{{opacity:1}}{100 - float(fade[:-1]):.3f}%{{opacity:1}}100%{{opacity:0}}}}"
-        ".mjb{animation:mjb .36s ease-in-out infinite alternate}@keyframes mjb{to{transform:translateY(-1.6px)}}"
-        ".mjl{transform-box:fill-box;transform-origin:top center;animation:mjl .36s ease-in-out infinite alternate}"
-        ".mjl2{animation-direction:alternate-reverse}@keyframes mjl{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}"
-        ".mje{animation:mje 4.2s infinite}@keyframes mje{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}"
-        ".mja{animation:mja 1.6s ease-in-out infinite}@keyframes mja{50%{opacity:.35}}")
-    a, bg = t["accent"], t["bg"]
-    # feet at (0,0), head toward -y. ~20 units tall, no backing shape of any kind.
-    s.add(f'<g class="mjw"><g class="mj"><g class="mjb">'
-          f'<line class="mjl" x1="-3" y1="-6" x2="-3" y2="0" stroke="{a}" stroke-width="2.2" stroke-linecap="round"/>'
-          f'<line class="mjl mjl2" x1="3" y1="-6" x2="3" y2="0" stroke="{a}" stroke-width="2.2" stroke-linecap="round"/>'
-          f'<rect x="-7.5" y="-17" width="15" height="12" rx="5" fill="{a}"/>'
-          f'<g class="mje" style="transform-box:fill-box;transform-origin:center">'
-          f'<circle cx="2.6" cy="-11.6" r="2.4" fill="{bg}"/></g>'
-          f'<line x1="-1.5" y1="-17" x2="-3.5" y2="-21.5" stroke="{a}" stroke-width="1.4" stroke-linecap="round"/>'
-          f'<circle class="mja" cx="-3.8" cy="-22.4" r="1.7" fill="{a}"/>'
-          f'</g></g></g>')
+        keep = [i for i in range(len(tr)) if flags[i] or (i and flags[i - 1]) or (i + 1 < len(tr) and flags[i + 1])]
+        mv, vis, eye = [], [], []
+        last_p = None
+        for i in keep:
+            tt, x, y, ang, _ = tr[i]
+            p = _pct(tt)
+            if p == last_p:
+                continue
+            last_p = p
+            lx, ly = loc(x, y)
+            mv.append(f"{p}{{transform:translate({lx:.1f}px,{ly:.1f}px) rotate({ang:.1f}deg)}}")
+        # visibility: hidden while the mascot is far from this image
+        shown = None
+        for i, f in enumerate(tr):
+            v = flags[i] or (i and flags[i - 1]) or (i + 1 < len(tr) and flags[i + 1])
+            if v != shown:
+                tt = f[0] if v else tr[i - 1][0]
+                vis.append(f"{_pct(tt)}{{opacity:{1 if v else 0}}}")
+                vis.append(f"{100 * tt / P + 0.001:.3f}%{{opacity:{1 if v else 0}}}")
+                shown = v
+        # the eye glides across the face when the mascot turns around: no mirroring
+        cur = tr[0][4]
+        eye.append(f"0%{{transform:translateX({2.6 * cur:.1f}px)}}")
+        for f in tr[1:]:
+            if f[4] != cur:
+                eye.append(f"{_pct(f[0])}{{transform:translateX({2.6 * cur:.1f}px)}}")
+                eye.append(f"{_pct(min(f[0] + 0.32, P))}{{transform:translateX({2.6 * f[4]:.1f}px)}}")
+                cur = f[4]
+        eye.append(f"100%{{transform:translateX({2.6 * cur:.1f}px)}}")
+        css.append(f"@keyframes mv{c}{{{''.join(mv)}}}@keyframes vs{c}{{0%{{opacity:0}}{''.join(vis)}}}"
+                   f"@keyframes ey{c}{{{''.join(eye)}}}"
+                   f".mv{c}{{animation:mv{c} {P:.2f}s linear infinite}}.vs{c}{{opacity:0;animation:vs{c} {P:.2f}s step-end infinite}}"
+                   f".ey{c}{{animation:ey{c} {P:.2f}s ease-in-out infinite}}")
+        col = t[CREW[c]]
+        body.append(
+            f'<g class="vs{c}"><g class="mv{c}"><g class="mjb" style="animation-delay:-{0.07 * c:.2f}s">'
+            f'<line class="mjl" x1="-3" y1="-6" x2="-3" y2="0" stroke="{col}" stroke-width="2.2" stroke-linecap="round"/>'
+            f'<line class="mjl mjl2" x1="3" y1="-6" x2="3" y2="0" stroke="{col}" stroke-width="2.2" stroke-linecap="round"/>'
+            f'<rect x="-7.5" y="-17" width="15" height="12" rx="5" fill="{col}"/>'
+            f'<g class="ey{c}"><g class="mjk" style="transform-box:fill-box;transform-origin:center">'
+            f'<circle cx="0" cy="-11.6" r="2.4" fill="{t["bg"]}"/></g></g>'
+            f'<line x1="0" y1="-17" x2="0" y2="-21.5" stroke="{col}" stroke-width="1.4" stroke-linecap="round"/>'
+            f'<circle class="mja" cx="0" cy="-22.6" r="1.7" fill="{col}"/></g></g></g>')
+    # collisions: the two mascots bounce apart and a two-colour spark ring bursts where they met
+    for n, (tc, tau, kk) in enumerate(HITS):
+        x, y, ang = at(tau)
+        if not (ox - 10 <= x <= ox + w + 10 and oy - 10 <= y <= oy + h + 10):
+            continue
+        lx, ly = loc(x, y)
+        c1, c2 = t[CREW[kk]], t[CREW[kk + 1]]
+        a0, a1, a2 = _pct(max(tc - 0.02, 0)), _pct(tc + 0.05), _pct(min(tc + 0.9, P))
+        css.append(f"@keyframes bs{n}{{0%,{a0}{{opacity:0;transform:scale(.2) rotate(0deg)}}"
+                   f"{a1}{{opacity:1;transform:scale(.6) rotate(10deg)}}{a2}{{opacity:0;transform:scale(1.7) rotate(70deg)}}"
+                   f"100%{{opacity:0;transform:scale(.2)}}}}")
+        sparks = "".join(
+            f'<circle cx="{14 * math.cos(i * math.pi / 5):.1f}" cy="{14 * math.sin(i * math.pi / 5):.1f}" r="{2.2 if i % 2 else 1.6}" '
+            f'fill="{c1 if i % 2 else c2}"/>' for i in range(10))
+        ra = math.radians(ang)
+        body.append(f'<g transform="translate({lx + 11 * math.sin(ra):.1f} {ly - 11 * math.cos(ra):.1f}) rotate({ang:.0f})"><g class="bst" '
+                    f'style="animation:bs{n} {P:.2f}s linear infinite">'
+                    f'<circle r="9" fill="none" stroke="{c1}" stroke-width="1.4"/>'
+                    f'<circle r="5" fill="none" stroke="{c2}" stroke-width="1.2" stroke-dasharray="2 3"/>{sparks}</g></g>')
+    if body:
+        s.css.append("".join(css))
+        s.add("".join(body))
