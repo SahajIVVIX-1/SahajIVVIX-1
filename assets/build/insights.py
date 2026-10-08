@@ -6,7 +6,7 @@ Writes assets/insights-dark.svg and assets/insights-light.svg. Run by the
 README build workflow; with no token it renders the empty "syncing" state.
 """
 import datetime as dt
-import json, os, sys
+import json, math, os, random, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.environ.setdefault("PORTRAIT", "")  # the board has no portrait; skip loading it
@@ -107,6 +107,90 @@ def panel(s, x, y, w, h, label, note=""):
         s.text(x + w - 22, y + 32, note, "mono", 11, 400, fill="faint", anchor="end")
 
 
+def wander(grid, rnd, budget=72.0):
+    """A forager's walk over the grid: pick a bright cell, drift toward it with
+    some wobble, linger on busy days, then pick the next one. Returns
+    [(col, row, arrive_s, leave_s)]."""
+    cells = list(grid)
+    weight = [1 + 3 * grid[c] ** 1.5 for c in cells]
+    def pick(near):
+        if rnd.random() < 0.25:  # sometimes roam far
+            return rnd.choices(cells, weight)[0]
+        pool = [(c, w) for c, w in zip(cells, weight) if abs(c[0] - near[0]) <= 9 and c != near]
+        return rnd.choices([c for c, _ in pool], [w for _, w in pool])[0]
+    pos = rnd.choices(cells, weight)[0]
+    target, t, path, recent = pick(pos), 1.0, [], []
+    while t < budget:
+        lvl = grid[pos]
+        stay = 0.05 + 0.11 * lvl + (0.45 if pos == target else 0)
+        path.append((pos[0], pos[1], t, t + stay)); t += stay
+        recent = (recent + [pos])[-10:]
+        if pos == target:
+            target = pick(pos)
+        dist = lambda c: math.hypot(c[0] - target[0], c[1] - target[1])
+        nbrs = [(pos[0] + dx, pos[1] + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1)
+                if (dx or dy) and (pos[0] + dx, pos[1] + dy) in grid]
+        here = dist(pos)
+        scores = [(1 + 1.6 * grid[n]) * (3.2 if dist(n) < here else 0.35) * (0.25 if n in recent else 1)
+                  * (0.8 if n[0] != pos[0] and n[1] != pos[1] else 1) for n in nbrs]
+        nxt = rnd.choices(nbrs, scores)[0]
+        t += 0.26 * math.hypot(nxt[0] - pos[0], nxt[1] - pos[1])
+        pos = nxt
+    return path, t + 1.2
+
+
+def firefly(s, data, gx, gy, cell, gap):
+    """Layer a wandering light over the heatmap. It is plain CSS keyframes, so it
+    plays inside GitHub's <img>, pauses on hover when the SVG is opened directly,
+    and stops under prefers-reduced-motion. The route is re-seeded every build."""
+    t = s.t
+    grid = {}
+    for wi, week in enumerate(data["weeks"]):
+        for date, n, lvl in week:
+            grid[(wi, (dt.date.fromisoformat(date).weekday() + 1) % 7)] = lvl
+    rnd = random.Random(f"{data.get('synced')}-{data.get('total')}-{dt.datetime.now().strftime('%Y%m%d%H%M')}")
+    path, T = wander(grid, rnd)
+    step = cell + gap
+    cx = lambda c: gx + c * step + cell / 2
+    cy = lambda r: gy + r * step + cell / 2
+    pct = lambda sec: f"{100 * sec / T:.3f}%"
+    frames = [f"0%{{transform:translate({cx(path[0][0]):.1f}px,{cy(path[0][1]):.1f}px)}}"]
+    for c, r, a, b in path:
+        xy = f"transform:translate({cx(c):.1f}px,{cy(r):.1f}px)"
+        frames.append(f"{pct(a)}{{{xy}}}")
+        frames.append(f"{pct(b)}{{{xy}}}")
+    frames.append(f"100%{{transform:translate({cx(path[-1][0]):.1f}px,{cy(path[-1][1]):.1f}px)}}")
+    s.css.append("@keyframes ffm{" + "".join(frames) + "}"
+                 f".ff{{animation:ffm {T:.2f}s cubic-bezier(.45,.05,.4,1) infinite}}"
+                 f".ffw{{opacity:0;animation:ffw {T:.2f}s linear infinite}}"
+                 f"@keyframes ffw{{0%{{opacity:0}}{pct(0.9)}{{opacity:1}}{pct(T-1.0)}{{opacity:1}}100%{{opacity:0}}}}"
+                 ".ffg{animation:ffg 1.8s ease-in-out infinite}@keyframes ffg{50%{opacity:.35}}"
+                 ".rp{opacity:0;transform-box:fill-box;transform-origin:center}"
+                 "svg:hover .ff,svg:hover .ffw,svg:hover .rp,svg:hover .ffg{animation-play-state:paused}")
+    # ripples where the light meets a busy day
+    seen, defs = set(), []
+    for k, (c, r, a, b) in enumerate(path):
+        lvl = grid[(c, r)]
+        if not lvl or (c, r, round(a)) in seen:
+            continue
+        seen.add((c, r, round(a)))
+        n = len(defs)
+        a0, a1, a2 = pct(max(a - 0.02, 0)), pct(a + 0.08), pct(min(a + 0.9 + 0.15 * lvl, T))
+        defs.append(f"@keyframes rp{n}{{0%,{a0}{{opacity:0;transform:scale(.5)}}{a1}{{opacity:.95;transform:scale(1)}}"
+                    f"{a2}{{opacity:0;transform:scale({1.7 + 0.25 * lvl:.2f})}}100%{{opacity:0}}}}")
+        x, y = gx + c * step, gy + r * step
+        s.add(f'<rect class="rp" style="animation:rp{n} {T:.2f}s linear infinite" x="{x}" y="{y}" width="{cell}" '
+              f'height="{cell}" rx="3.5" fill="{t["accent"]}" fill-opacity=".25" stroke="{t["accent"]}" stroke-width="1.5"/>')
+    s.css.append("".join(defs))
+    # the light: a soft halo, a bright core, and a short comet tail
+    s.add(f'<defs><radialGradient id="ffh"><stop offset="0" stop-color="{t["accent"]}" stop-opacity=".75"/>'
+          f'<stop offset="1" stop-color="{t["accent"]}" stop-opacity="0"/></radialGradient></defs><g class="ffw">')
+    for i, (rad, op) in enumerate([(2.2, .18), (2.8, .28), (3.4, .4)]):
+        s.add(f'<g class="ff" style="animation-delay:{0.09 * (3 - i):.2f}s"><circle r="{rad}" fill="{t["accent"]}" opacity="{op}"/></g>')
+    s.add(f'<g class="ff"><circle class="ffg" r="19" fill="url(#ffh)"/><circle r="5.2" fill="{t["accent"]}"/>'
+          f'<circle r="2" fill="{t["bg"]}" opacity=".85"/></g></g>')
+
+
 def board(data, theme):
     W = 1200
     s = Svg(W, 760, "Insights: a year of GitHub activity for SahajIVVIX-1, with contribution heatmap, "
@@ -142,7 +226,7 @@ def board(data, theme):
 
     # ── heatmap ──
     hx, hy = 32, 156
-    panel(s, hx, hy, 856, 236, "CONTRIBUTION FIELD", "one cell per day  ·  darker = busier")
+    panel(s, hx, hy, 856, 236, "CONTRIBUTION FIELD", "one cell per day  ·  the light seeks busy days")
     cell, gap = 12, 3
     gx, gy = hx + 54, hy + 62
     shades = [t["surface2"]] + [t["accent"]] * 4
@@ -165,12 +249,7 @@ def board(data, theme):
             s.add(f'<rect{cls} x="{x}" y="{y}" width="{cell}" height="{cell}" rx="3" fill="{shades[lvl]}" '
                   f'fill-opacity="{alpha[lvl]}"/>')
         s.add("</g>")
-    # sweeping scan line
-    span = len(data["weeks"]) * (cell + gap)
-    s.add(f'<rect class="scan" x="{gx-2}" y="{gy-4}" width="3" height="{7*(cell+gap)+5}" rx="1.5" fill="{t["accent"]}" opacity=".55"/>')
-    s.css.append(f".scan{{animation:scan 9s linear 2s infinite;opacity:0}}"
-                 f"@keyframes scan{{0%{{transform:translateX(0);opacity:0}}6%{{opacity:.6}}94%{{opacity:.6}}"
-                 f"100%{{transform:translateX({span}px);opacity:0}}}}")
+    firefly(s, data, gx, gy, cell, gap)
     # legend
     ly = gy + 7 * (cell + gap) + 26
     s.text(gx, ly, "less", "mono", 10.5, 400, fill="faint")
