@@ -128,7 +128,7 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/light_mode.svg">
-  <img alt="Live GitHub telemetry: commits, repositories, stars, followers and lines of code, refreshed daily by GitHub Actions" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg" width="100%">
+  <img alt="Live GitHub telemetry: commits, repositories, stars, followers and lines of code, refreshed every 15 minutes by GitHub Actions" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/dark_mode.svg" width="100%">
 </picture>
 
 <br/>
@@ -144,7 +144,7 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 <a href="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/Resume_WIcon.pdf"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-resume-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-resume-light.svg"><img alt="Résumé" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-resume-dark.svg" height="44"></picture></a>
 <a href="https://leetcode.com/sahajs59"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-leetcode-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-leetcode-light.svg"><img alt="LeetCode" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/btn-leetcode-dark.svg" height="44"></picture></a>
 
-<!-- profile-view counter: counts each visit; the number is shown in the header pill, synced daily by today.py -->
+<!-- profile-view counter: counts each visit; the number is shown in the header pill, synced every 15 minutes by today.py -->
 <img src="https://komarev.com/ghpvc/?username=SahajIVVIX-1&style=flat-square&color=141413" width="1" height="1" alt=""/>
 
 </div>

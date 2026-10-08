@@ -689,7 +689,7 @@ BOOT = [
 
 def telemetry(theme):
     W, H = 1200, 510
-    s = Svg(W, H, "Live GitHub telemetry for SahajIVVIX-1: commits, repositories, stars, followers and lines of code, refreshed daily", theme)
+    s = Svg(W, H, "Live GitHub telemetry for SahajIVVIX-1: commits, repositories, stars, followers and lines of code, refreshed every 15 minutes", theme)
     t = s.t
     s.add(f'<rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" rx="18" fill="{t["bg"]}" stroke="{t["line"]}"/>')
     # window chrome
@@ -724,7 +724,7 @@ def telemetry(theme):
     hy, hh = 330, 112
     s.add(f'<rect x="32" y="{hy}" width="500" height="{hh}" rx="12" fill="{t["surface"]}" stroke="{t["line"]}"/>')
     s.text(52, hy + 28, "HEARTBEAT", "mono", 11.5, 500, fill="accent", ls=0.8)
-    s.text(512, hy + 28, "cron 0 4 * * *  ·  daily 04:00 UTC", "mono", 11, 400, fill="faint", anchor="end")
+    s.text(512, hy + 28, "cron */15 * * * *  ·  every 15 min", "mono", 11, 400, fill="faint", anchor="end")
     base, pts, x = hy + 76, [], 52
     while x < 512:
         pts += [f"L{x+40} {base}", f"L{x+48} {base-8}", f"L{x+54} {base+10}", f"L{x+60} {base-30}",
