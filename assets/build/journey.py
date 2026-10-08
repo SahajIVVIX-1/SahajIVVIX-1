@@ -15,7 +15,7 @@ prefers-reduced-motion the mascot stays hidden.
 """
 import math
 import random
-from layout import toolkit_layout
+from layout import toolkit_layout, recognition_layout, RC_COL
 
 SCALE = 1200 / 830
 _PX = {  # name: (x, y, w, h) in px at an 830px column, top of hero = y 53
@@ -25,9 +25,9 @@ _PX = {  # name: (x, y, w, h) in px at an 830px column, top of hero = y 53
     "rag-pipeline": (35, 1278, 830, 530), "card-openenv": (35, 1824, 407, 281),
     "card-dcgan": (35, 2126, 407, 281), "card-microplastic": (35, 2427, 830, 104),
     "section-toolkit": (35, 2633, 830, 58), "toolkit": (35, 2707, 830, 433),
-    "section-recognition": (35, 3190, 830, 58), "section-signals": (35, 3714, 830, 58),
-    "telemetry": (35, 3788, 830, 353), "insights": (35, 4157, 830, 526),
-    "footer": (35, 4733, 830, 173),
+    "section-recognition": (35, 3190, 830, 58), "recognition": (35, 3264, 830, 503), "section-signals": (35, 3817, 830, 58),
+    "telemetry": (35, 3891, 830, 353), "insights": (35, 4260, 830, 526),
+    "footer": (35, 4835, 830, 173),
 }
 VIEW = {"card-openenv": (584, 404), "card-dcgan": (584, 404)}  # others are 1200 wide
 # section rule lines: (start x, end x) at local y 48, from build.section()
@@ -225,23 +225,57 @@ def route():
     add("leap", "section-recognition", 926 - 30, 48, UP)
     add("walk", "section-recognition", 270 + 26, 48, UP)
     letters("section-recognition", title("section-recognition", "Recognition"), reverse=True, first="hop")
-    letters("section-signals", title("section-signals", "Signals"), first="fall")
-    add("hop", "section-signals", 185 + 26, 48, UP)
-    add("walk", "section-signals", 1012 - 30, 48, UP)
-    # ── telemetry console's right border, then the insights tiles and panels ──
-    add("leap", "telemetry", 1199.5, 70, LEFT)
-    add("walk", "insights", 1199.5, 14, LEFT)
+    # ── Recognition: headings, their rules, the achievement cards, then both rows of certificates ──
+    R = recognition_layout(lambda t, r, w, z: advance(t, r, w, z))
+    # (the first capital sits at the image's left edge; a bot there would stick out)
+    head = lambda y, text: [gt for gt in glyph_tops([(text, 400, "normal")], "serif", 30, 2, y, -0.4) if gt[0] > 9]
+    ctop, th = R["card_top"], R["tile_h"]
+
+    def tops(boxes, y):  # walkable top edge of each card, inside its rounded corners
+        return [(bx + 14, bx + RC_COL - 14, y) for bx in boxes]
+
+    def thin(seq):  # skip the odd one at random, never two in a row and never an end
+        out, skipped = [], False
+        for i, c in enumerate(seq):
+            skipped = not skipped and 0 < i < len(seq) - 1 and rnd.random() < 0.3
+            if not skipped:
+                out.append(c)
+        return out
+
+    letters("recognition", head(R["head1"], "Achievements"), first="fall")
+    add("hop", "recognition", R["rule1"][0] + 6, R["rule1"][1] - 0.5, UP)
+    add("walk", "recognition", 1180, R["rule1"][1] - 0.5, UP)
+    letters("recognition", thin(tops([c["x"] for c in R["cards"]], ctop)), reverse=True, first="hop")
+    # down the first card's side, onto the Certifications heading and along its rule
+    add("walk", "recognition", 0.5, ctop + 12, RIGHT)
+    add("walk", "recognition", 0.5, R["card_bot"] - 14, RIGHT)
+    letters("recognition", head(R["head2"], "Certifications"), first="hop")
+    add("hop", "recognition", R["rule2"][0] + 6, R["rule2"][1] - 0.5, UP)
+    add("walk", "recognition", 1180, R["rule2"][1] - 0.5, UP)
+    row = lambda r: [t["x"] for t in R["tiles"][r * 5:(r + 1) * 5]]
+    y1, y2 = R["tiles"][0]["y"], R["tiles"][5]["y"]
+    letters("recognition", thin(tops(row(0), y1)), reverse=True, first="hop")
+    add("walk", "recognition", 0.5, y1 + 12, RIGHT)
+    add("walk", "recognition", 0.5, y2 - 8, RIGHT)
+    add("walk", "recognition", 14, y2, UP)
+    letters("recognition", thin(tops(row(1), y2)), first="walk")
+    # ── Signals right to left: rule, then title; onto the telemetry console's left border ──
+    add("fall", "section-signals", 1012 - 30, 48, UP)
+    add("walk", "section-signals", 185 + 26, 48, UP)
+    letters("section-signals", title("section-signals", "Signals"), reverse=True, first="hop")
+    add("leap", "telemetry", 0.5, 70, RIGHT)
+    add("walk", "insights", 0.5, 14, RIGHT)
     kw = (1200 - 64 - 4 * 12) / 5
     tiles = [(32 + i * (kw + 12) + 14, 32 + i * (kw + 12) + kw - 14, 32.5) for i in range(5)]
-    letters("insights", tiles, reverse=True, first="hop")
-    add("leap", "insights", 46, 156.5, UP)
-    add("walk", "insights", 874, 156.5, UP)
-    add("hop", "insights", 914, 156.5, UP)
-    add("walk", "insights", 1154, 156.5, UP)
-    add("hop", "insights", 1199.5, 190, LEFT)
-    add("walk", "footer", 1199.5, 232, LEFT)
-    add("walk", "footer", 1182, 249.5, UP)
-    add("walk", "footer", 30, 249.5, UP)
+    letters("insights", tiles, first="hop")
+    add("fall", "insights", 1154, 156.5, UP)
+    add("walk", "insights", 914, 156.5, UP)
+    add("hop", "insights", 874, 156.5, UP)
+    add("walk", "insights", 46, 156.5, UP)
+    add("hop", "insights", 0.5, 190, RIGHT)
+    add("walk", "footer", 0.5, 232, RIGHT)
+    add("walk", "footer", 18, 249.5, UP)
+    add("walk", "footer", 1170, 249.5, UP)
     return r
 
 

@@ -81,44 +81,7 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-recognition-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-recognition-light.svg"><img alt="05 Recognition" src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/section-recognition-dark.svg" width="100%"></picture>
 
 
-<table>
-<tr>
-<td width="46%" valign="top">
-
-**Achievements**
-
-- **IEEE AIMV 2025:** presented 2 papers, on Deepfake Detection and Crime Prediction
-- **Code4Cause 2.0:** national-level finalist, NSUT Delhi
-- **ISRO-IIRS:** AI/ML for Geodata Analysis
-- **IEEE Operations Lead:** coordinated research-paper presentations
-- **GDG Gandhinagar:** AI and Firebase workshops
-
-</td>
-<td width="54%" valign="top">
-
-**Certifications**
-
-<table>
-<tr><th align="left">Certificate</th><th align="left">Issuer</th></tr>
-<tr><td colspan="2"><sub><b>AI / GENAI &amp; AGENTS</b></sub></td></tr>
-<tr><td>Agentic AI with LangChain and LangGraph</td><td><img src="https://img.shields.io/badge/IBM-052FAD?style=flat-square&logo=ibm&logoColor=white" alt="IBM"/></td></tr>
-<tr><td>Fundamentals of Building AI Agents</td><td><img src="https://img.shields.io/badge/IBM-052FAD?style=flat-square&logo=ibm&logoColor=white" alt="IBM"/></td></tr>
-<tr><td>AWS Generative AI and AI Agents with Amazon Bedrock</td><td><img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white" alt="AWS"/></td></tr>
-<tr><td>Building with the Claude API</td><td><img src="https://img.shields.io/badge/Anthropic-191919?style=flat-square&logo=anthropic&logoColor=white" alt="Anthropic"/></td></tr>
-<tr><td>Claude Code 101</td><td><img src="https://img.shields.io/badge/Anthropic-191919?style=flat-square&logo=anthropic&logoColor=white" alt="Anthropic"/></td></tr>
-<tr><td>Dataiku Generative AI Practitioner</td><td><img src="https://img.shields.io/badge/Dataiku-2AB1AC?style=flat-square" alt="Dataiku"/></td></tr>
-<tr><td colspan="2"><sub><b>ML / DL</b></sub></td></tr>
-<tr><td>Deep Learning</td><td><img src="https://img.shields.io/badge/IIT_Ropar_·_NPTEL-C2410C?style=flat-square" alt="IIT Ropar · NPTEL"/></td></tr>
-<tr><td colspan="2"><sub><b>CLOUD</b></sub></td></tr>
-<tr><td>Oracle Cloud and AI</td><td><img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=oracle&logoColor=white" alt="Oracle"/></td></tr>
-<tr><td colspan="2"><sub><b>OTHER</b></sub></td></tr>
-<tr><td>Data Structure &amp; Algorithm With Python</td><td><img src="https://img.shields.io/badge/Udemy-A435F0?style=flat-square&logo=udemy&logoColor=white" alt="Udemy"/></td></tr>
-<tr><td>2,121-Word Book</td><td><img src="https://img.shields.io/badge/Guinness_World_Records-000000?style=flat-square" alt="Guinness World Records"/></td></tr>
-</table>
-
-</td>
-</tr>
-</table>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/recognition-dark.svg"><source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/recognition-light.svg"><img alt="Recognition. Achievements: IEEE AIMV 2025: Presented 2 papers, on Deepfake Detection and Crime Prediction; Code4Cause 2.0: National-level finalist, NSUT Delhi; ISRO-IIRS: AI/ML for Geodata Analysis; IEEE Operations Lead: Coordinated research-paper presentations; GDG Gandhinagar: AI and Firebase workshops. Certifications: Agentic AI with LangChain and LangGraph (IBM); Fundamentals of Building AI Agents (IBM); AWS Generative AI and AI Agents with Amazon Bedrock (AWS); Building with the Claude API (Anthropic); Claude Code 101 (Anthropic); Dataiku Generative AI Practitioner (Dataiku); Deep Learning (IIT Ropar · NPTEL); Oracle Cloud and AI (Oracle); Data Structure &amp; Algorithm With Python (Udemy); 2,121-Word Book (Guinness World Records)." src="https://raw.githubusercontent.com/SahajIVVIX-1/SahajIVVIX-1/main/assets/recognition-dark.svg" width="100%"></picture>
 
 <br/>
 

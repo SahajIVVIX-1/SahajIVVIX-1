@@ -33,30 +33,7 @@ def card(key, repo, alt):
     return link(f"{GH}/{repo}", pic(f"card-{key}", alt, width="49%"))
 
 
-ISSUER = {
-    "IBM": "https://img.shields.io/badge/IBM-052FAD?style=flat-square&logo=ibm&logoColor=white",
-    "AWS": "https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white",
-    "Anthropic": "https://img.shields.io/badge/Anthropic-191919?style=flat-square&logo=anthropic&logoColor=white",
-    "Dataiku": "https://img.shields.io/badge/Dataiku-2AB1AC?style=flat-square",
-    "IIT Ropar · NPTEL": "https://img.shields.io/badge/IIT_Ropar_·_NPTEL-C2410C?style=flat-square",
-    "Oracle": "https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=oracle&logoColor=white",
-    "Udemy": "https://img.shields.io/badge/Udemy-A435F0?style=flat-square&logo=udemy&logoColor=white",
-    "Guinness World Records": "https://img.shields.io/badge/Guinness_World_Records-000000?style=flat-square",
-}
-CERTS = [
-    ("AI / GenAI & agents", [("Agentic AI with LangChain and LangGraph", "IBM"), ("Fundamentals of Building AI Agents", "IBM"),
-                             ("AWS Generative AI and AI Agents with Amazon Bedrock", "AWS"), ("Building with the Claude API", "Anthropic"),
-                             ("Claude Code 101", "Anthropic"), ("Dataiku Generative AI Practitioner", "Dataiku")]),
-    ("ML / DL", [("Deep Learning", "IIT Ropar · NPTEL")]),
-    ("Cloud", [("Oracle Cloud and AI", "Oracle")]),
-    ("Other", [("Data Structure & Algorithm With Python", "Udemy"), ("2,121-Word Book", "Guinness World Records")]),
-]
-cert_rows = []
-for group, items in CERTS:
-    cert_rows.append(f'<tr><td colspan="2"><sub><b>{group.upper().replace("&", "&amp;")}</b></sub></td></tr>')
-    for name, iss in items:
-        cert_rows.append(f'<tr><td>{name.replace("&", "&amp;")}</td><td><img src="{ISSUER[iss]}" alt="{iss}"/></td></tr>')
-cert_table = "\n".join(cert_rows)
+from layout import ACHIEVEMENTS, CERTS
 
 README = f"""<!--
   Profile README for SahajIVVIX-1.
@@ -121,31 +98,7 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 
 {section("recognition", "05 Recognition")}
 
-<table>
-<tr>
-<td width="46%" valign="top">
-
-**Achievements**
-
-- **IEEE AIMV 2025:** presented 2 papers, on Deepfake Detection and Crime Prediction
-- **Code4Cause 2.0:** national-level finalist, NSUT Delhi
-- **ISRO-IIRS:** AI/ML for Geodata Analysis
-- **IEEE Operations Lead:** coordinated research-paper presentations
-- **GDG Gandhinagar:** AI and Firebase workshops
-
-</td>
-<td width="54%" valign="top">
-
-**Certifications**
-
-<table>
-<tr><th align="left">Certificate</th><th align="left">Issuer</th></tr>
-{cert_table}
-</table>
-
-</td>
-</tr>
-</table>
+{pic("recognition", "Recognition. Achievements: " + "; ".join(f"{a}: {b}" for a, b in ACHIEVEMENTS) + ". Certifications: " + "; ".join(f"{n} ({i})" for _, items in CERTS for n, i in items).replace("&", "&amp;") + ".", width="100%")}
 
 {section("signals", "06 Signals")}
 

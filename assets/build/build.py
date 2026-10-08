@@ -13,7 +13,7 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 from PIL import Image
 import journey
-from layout import TOOLKIT, TK_W, TK_CHIP_H, toolkit_layout
+from layout import TOOLKIT, TK_W, TK_CHIP_H, toolkit_layout, ACHIEVEMENTS, CERTS, RC_COL, RC_PAD, recognition_layout
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.dirname(HERE)  # assets/
@@ -610,6 +610,75 @@ def toolkit(theme):
     return s
 
 
+# ── 7b. recognition: achievement cards + certificate tiles ──────────────────
+def recognition(theme):
+    L = recognition_layout(measure)
+    W, H, th = 1200, L["H"], L["tile_h"]
+    flat = [f"{n} ({i})" for _, items in CERTS for n, i in items]
+    s = Svg(W, H, "Recognition. Achievements: " + "; ".join(f"{a}: {b}" for a, b in ACHIEVEMENTS)
+            + ". Certifications: " + "; ".join(flat), theme)
+    t = dict(s.t, **journey.EXTRA.get(s.t["bg"], {}))
+    tone = {"AI / GenAI & agents": t["accent"], "ML / DL": t["blue"], "Cloud": t["olive"], "Other": t["gold"]}
+    n_items = len(ACHIEVEMENTS) + len(L["tiles"])
+    step = 0.9
+    cyc = n_items * step
+    s.css.append(
+        # entrance: drawn in place, so reduced motion (no animation) still shows everything
+        ".rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards}"
+        "@keyframes rise{from{opacity:0;transform:translateY(12px)}}"
+        ".rule{stroke-dasharray:1;stroke-dashoffset:0;animation:rule 1.4s cubic-bezier(.6,0,.3,1) backwards}"
+        "@keyframes rule{from{stroke-dashoffset:1}}"
+        # one item at a time lights up, achievements then certificates, round and round
+        f".glow{{opacity:0;animation:glow {cyc:.1f}s ease-in-out infinite}}"
+        f"@keyframes glow{{0%{{opacity:0}}{100/n_items*0.3:.2f}%{{opacity:1}}{100/n_items*1.1:.2f}%{{opacity:1}}"
+        f"{100/n_items*1.6:.2f}%{{opacity:0}}100%{{opacity:0}}}}"
+        ".ping{transform-box:fill-box;transform-origin:center;animation:ping 2.8s ease-out infinite}"
+        "@keyframes ping{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(3.2);opacity:0}}")
+
+    def heading(y, text, count, rule):
+        s.text(2, y, text, "serif", 30, 400, fill="text", ls=-0.4)
+        rx, ry = rule
+        s.text(rx - 30, ry + 4, count, "mono", 11.5, 500, fill="accent", ls=0.6)
+        s.add(f'<line class="rule" pathLength="1" x1="{rx}" y1="{ry}" x2="{W}" y2="{ry}" stroke="{t["line"]}"/>')
+
+    heading(L["head1"], "Achievements", f"{len(ACHIEVEMENTS):02d}", L["rule1"])
+    top, bot = L["card_top"], L["card_bot"]
+    k = 0
+    for i, c in enumerate(L["cards"]):
+        x, w = c["x"], RC_COL
+        s.add(f'<g class="rise" style="animation-delay:{0.15 + i * 0.08:.2f}s">'
+              f'<rect x="{x + .5:.1f}" y="{top + .5}" width="{w - 1:.1f}" height="{bot - top - 1}" rx="14" fill="{t["surface"]}" stroke="{t["line"]}"/>')
+        s.text(x + RC_PAD, top + 36, f"{i + 1:02d}", "mono", 12, 500, fill="accent", ls=0.6)
+        s.add(f'<line x1="{x + RC_PAD + 26:.1f}" y1="{top + 32}" x2="{x + w - RC_PAD:.1f}" y2="{top + 32}" stroke="{t["line"]}" stroke-dasharray="2 4"/>')
+        for j, ln in enumerate(c["title"]):
+            s.text(x + RC_PAD, c["y_title"] + 22 * j, ln, "sans", 17, 600, fill="text")
+        for j, ln in enumerate(c["desc"]):
+            s.text(x + RC_PAD, c["y_desc"] + 21 * j, ln, "sans", 14.5, 400, fill="muted")
+        s.add("</g>")
+        s.add(f'<rect class="glow" style="animation-delay:{k * step:.1f}s" x="{x + .5:.1f}" y="{top + .5}" width="{w - 1:.1f}" '
+              f'height="{bot - top - 1}" rx="14" fill="none" stroke="{t["accent"]}" stroke-width="1.6"/>')
+        k += 1
+
+    heading(L["head2"], "Certifications", f"{len(L['tiles']):02d}", L["rule2"])
+    for i, tl in enumerate(L["tiles"]):
+        x, y, w, col = tl["x"], tl["y"], RC_COL, tone[tl["group"]]
+        s.add(f'<g class="rise" style="animation-delay:{0.5 + i * 0.05:.2f}s">'
+              f'<rect x="{x + .5:.1f}" y="{y + .5}" width="{w - 1:.1f}" height="{th - 1}" rx="14" fill="{t["surface"]}" stroke="{t["line"]}"/>'
+              f'<rect x="{x + RC_PAD:.1f}" y="{y + .5}" width="34" height="3" rx="1.5" fill="{col}"/>')
+        dx, dy = x + RC_PAD + 4, y + 30
+        s.add(f'<circle cx="{dx:.1f}" cy="{dy}" r="4" fill="{col}"/>'
+              f'<circle class="ping" style="animation-delay:{(i * 0.37) % 2.8:.2f}s" cx="{dx:.1f}" cy="{dy}" r="4" fill="none" stroke="{col}" stroke-width="1.2"/>')
+        s.text(x + RC_PAD + 16, y + 34, tl["issuer"].upper(), "mono", 11.5, 500, fill="muted", ls=0.5)
+        for j, ln in enumerate(tl["name"]):
+            s.text(x + RC_PAD, y + 70 + 21 * j, ln, "sans", 15.5, 600, fill="text")
+        s.text(x + RC_PAD, y + th - 22, tl["group"].upper(), "mono", 10.5, 400, fill="faint", ls=0.5)
+        s.add("</g>")
+        s.add(f'<rect class="glow" style="animation-delay:{k * step:.1f}s" x="{x + .5:.1f}" y="{y + .5}" width="{w - 1:.1f}" '
+              f'height="{th - 1}" rx="14" fill="none" stroke="{col}" stroke-width="1.6"/>')
+        k += 1
+    return s
+
+
 # ── 8. buttons + footer ─────────────────────────────────────────────────────
 BUTTONS = ["Portfolio", "LinkedIn", "X", "Medium", "Résumé", "LeetCode"]
 
@@ -769,6 +838,7 @@ if __name__ == "__main__":
         save(f"card-{k}", card(k))
     save("card-microplastic", microplastic)
     save("toolkit", toolkit)
+    save("recognition", recognition)
     for i, b in enumerate(BUTTONS):
         slug = b.lower().replace("é", "e")
         save(f"btn-{slug}", button(b, primary=(i == 0)))
