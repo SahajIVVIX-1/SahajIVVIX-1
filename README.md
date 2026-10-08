@@ -4,12 +4,16 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=230&section=header&text=Sahaj%20Saliya&fontSize=48&fontColor=fff&animation=twinkling&fontAlignY=32&desc=AI%20Engineer%20%E2%80%A2%20LLMs%20%E2%80%A2%20Agentic%20AI%20%E2%80%A2%20RAG%20%E2%80%A2%20Reinforcement%20Learning&descAlignY=52&descSize=17" width="100%"/>
 
 <a href="https://www.linkedin.com/in/sahajs59/">
+  <img src="https://images.weserv.nl/?url=github.com/SahajIVVIX-1.png&w=280&h=280&fit=cover&mask=circle&output=png" width="140" alt="Sahaj Saliya"/>
+</a>
+
+<a href="https://www.linkedin.com/in/sahajs59/">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=21&pause=1000&color=39FF14&center=true&vCenter=true&width=680&lines=Building+production-grade+Agentic+AI+systems;Multi-Agent+RAG+%E2%80%A2+LangGraph+%E2%80%A2+Qdrant+%E2%80%A2+FastAPI;Ex-Research+Intern+%40+HNNOIX+%E2%80%94+AI+Agents+for+6G;IEEE+AIMV+2025+%E2%80%94+2+papers+presented;B.Tech+ICT+%40+PDEU+%E2%80%A2+CGPA+8.5+%E2%80%A2+Class+of+2027" alt="Typing SVG"/>
 </a>
 
 <br/>
 
-<a href="https://sahajivvix-1.github.io/Portfolio2026/"><img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white"/></a>
+<a href="https://info.sahaj.si/"><img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white"/></a>
 <a href="https://www.linkedin.com/in/sahajs59/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
 <a href="https://x.com/SahajS59"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white"/></a>
 <a href="https://sahajs59.medium.com"><img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white"/></a>
@@ -227,11 +231,24 @@ flowchart LR
 <td width="50%" valign="top">
 
 **📜 Certifications**
-- Agentic AI with LangChain & LangGraph — **IBM**
-- Fundamentals of Building AI Agents — **IBM**
-- Generative AI & AI Agents with Amazon Bedrock — **AWS**
-- Deep Learning — **IIT Ropar (NPTEL)**
-- Data Structures & Algorithms with Python — **Udemy**
+
+<table>
+<tr><th align="left">Certificate</th><th align="left">Issuer</th></tr>
+<tr><td colspan="2"><b>🤖 AI / GenAI &amp; Agents</b></td></tr>
+<tr><td>Agentic AI with LangChain and LangGraph</td><td><img src="https://img.shields.io/badge/IBM-052FAD?style=flat-square&logo=ibm&logoColor=white" alt="IBM"/></td></tr>
+<tr><td>Fundamentals of Building AI Agents</td><td><img src="https://img.shields.io/badge/IBM-052FAD?style=flat-square&logo=ibm&logoColor=white" alt="IBM"/></td></tr>
+<tr><td>AWS Generative AI and AI Agents with Amazon Bedrock</td><td><img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white" alt="AWS"/></td></tr>
+<tr><td>Building with the Claude API</td><td><img src="https://img.shields.io/badge/Anthropic-191919?style=flat-square&logo=anthropic&logoColor=white" alt="Anthropic"/></td></tr>
+<tr><td>Claude Code 101</td><td><img src="https://img.shields.io/badge/Anthropic-191919?style=flat-square&logo=anthropic&logoColor=white" alt="Anthropic"/></td></tr>
+<tr><td>Dataiku Generative AI Practitioner</td><td><img src="https://img.shields.io/badge/Dataiku-2AB1AC?style=flat-square" alt="Dataiku"/></td></tr>
+<tr><td colspan="2"><b>🧠 ML / DL</b></td></tr>
+<tr><td>Deep Learning</td><td><img src="https://img.shields.io/badge/IIT_Ropar_·_NPTEL-C2410C?style=flat-square" alt="IIT Ropar · NPTEL"/></td></tr>
+<tr><td colspan="2"><b>☁️ Cloud</b></td></tr>
+<tr><td>Oracle Cloud and AI</td><td><img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=oracle&logoColor=white" alt="Oracle"/></td></tr>
+<tr><td colspan="2"><b>📚 Other</b></td></tr>
+<tr><td>Data Structure &amp; Algorithm With Python</td><td><img src="https://img.shields.io/badge/Udemy-A435F0?style=flat-square&logo=udemy&logoColor=white" alt="Udemy"/></td></tr>
+<tr><td>2,121-Word Book</td><td><img src="https://img.shields.io/badge/Guinness_World_Records-000000?style=flat-square" alt="Guinness World Records"/></td></tr>
+</table>
 
 </td>
 </tr>
@@ -260,7 +277,7 @@ flowchart LR
 
 <a href="mailto:sahajs7959@gmail.com"><img src="https://img.shields.io/badge/Say_Hello-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/></a>
 <a href="https://www.linkedin.com/in/sahajs59/"><img src="https://img.shields.io/badge/Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
-<a href="https://sahajivvix-1.github.io/Portfolio2026/"><img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white"/></a>
+<a href="https://info.sahaj.si/"><img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white"/></a>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=110&section=footer" width="100%"/>
 
