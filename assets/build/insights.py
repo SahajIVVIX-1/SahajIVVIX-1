@@ -167,18 +167,26 @@ def firefly(s, data, gx, gy, cell, gap):
                  ".ffg{animation:ffg 1.8s ease-in-out infinite}@keyframes ffg{50%{opacity:.35}}"
                  ".rp{opacity:0;transform-box:fill-box;transform-origin:center}"
                  "svg:hover .ff,svg:hover .ffw,svg:hover .rp,svg:hover .ffg{animation-play-state:paused}")
-    # ripples where the light meets a busy day
+    # empty days bloom as the light passes; busy days ripple
     seen, defs = set(), []
     for k, (c, r, a, b) in enumerate(path):
         lvl = grid[(c, r)]
-        if not lvl or (c, r, round(a)) in seen:
+        if (c, r, round(a)) in seen:
             continue
         seen.add((c, r, round(a)))
         n = len(defs)
+        x, y = gx + c * step, gy + r * step
+        if not lvl:
+            # an empty day: the light leaves a brief glow that blooms and fades back to empty
+            a0, a1, a2 = pct(max(a - 0.03, 0)), pct(a + 0.12), pct(min(a + 3.2, T))
+            defs.append(f"@keyframes rp{n}{{0%,{a0}{{opacity:0;transform:scale(.4)}}{a1}{{opacity:.85;transform:scale(1.08)}}"
+                        f"{a2}{{opacity:0;transform:scale(.85)}}100%{{opacity:0}}}}")
+            s.add(f'<rect class="rp" style="animation:rp{n} {T:.2f}s ease-out infinite" x="{x}" y="{y}" width="{cell}" '
+                  f'height="{cell}" rx="3" fill="{t["accent"]}"/>')
+            continue
         a0, a1, a2 = pct(max(a - 0.02, 0)), pct(a + 0.08), pct(min(a + 0.9 + 0.15 * lvl, T))
         defs.append(f"@keyframes rp{n}{{0%,{a0}{{opacity:0;transform:scale(.5)}}{a1}{{opacity:.95;transform:scale(1)}}"
                     f"{a2}{{opacity:0;transform:scale({1.7 + 0.25 * lvl:.2f})}}100%{{opacity:0}}}}")
-        x, y = gx + c * step, gy + r * step
         s.add(f'<rect class="rp" style="animation:rp{n} {T:.2f}s linear infinite" x="{x}" y="{y}" width="{cell}" '
               f'height="{cell}" rx="3.5" fill="{t["accent"]}" fill-opacity=".25" stroke="{t["accent"]}" stroke-width="1.5"/>')
     s.css.append("".join(defs))
@@ -226,7 +234,7 @@ def board(data, theme):
 
     # ── heatmap ──
     hx, hy = 32, 156
-    panel(s, hx, hy, 856, 236, "CONTRIBUTION FIELD", "one cell per day  ·  the light seeks busy days")
+    panel(s, hx, hy, 856, 236, "CONTRIBUTION FIELD", "one cell per day  ·  empty days glow as the light passes")
     cell, gap = 12, 3
     gx, gy = hx + 54, hy + 62
     shades = [t["surface2"]] + [t["accent"]] * 4
