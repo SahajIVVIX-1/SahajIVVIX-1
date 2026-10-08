@@ -64,8 +64,6 @@ README = f"""<!--
   Edit content there (or this file via assets/build/make_readme.py), re-run, commit.
 -->
 
-<p align="right"><img src="https://komarev.com/ghpvc/?username=SahajIVVIX-1&style=for-the-badge&color=D97757&label=PROFILE+VIEWS" alt="profile views"/></p>
-
 <div align="center">
 
 {pic("hero", "Sahaj Saliya. AI Engineer and Researcher building agents that retrieve, reason and learn. Focus: LLMs, Agentic AI, RAG, Reinforcement Learning.", width="100%")}
@@ -165,6 +163,8 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 
 {buttons}
 
+<!-- profile-view counter: counts each visit; the number is shown in the header pill, synced daily by today.py -->
+<img src="https://komarev.com/ghpvc/?username=SahajIVVIX-1&style=flat-square&color=141413" width="1" height="1" alt=""/>
 
 </div>
 """

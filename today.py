@@ -408,6 +408,28 @@ def follower_getter(username):
     return int(request.json()['data']['user']['followers']['totalCount'])
 
 
+def views_getter(username):
+    """
+    Reads the profile-view count from komarev.com (the counter image the README loads)
+    """
+    import re
+    request = requests.get('https://komarev.com/ghpvc/', params={'username': username}, timeout=20)
+    request.raise_for_status()
+    numbers = re.findall(r'>\s*([\d,]+)\s*<', request.text)
+    if not numbers:
+        raise Exception('views_getter() could not find a count in the komarev response')
+    return '{:,}'.format(int(numbers[-1].replace(',', '')))
+
+
+def hero_overwrite(filename, views):
+    """
+    Writes the profile-view count into the header SVG's views pill
+    """
+    tree = etree.parse(filename)
+    find_and_replace(tree.getroot(), 'views_data', views)
+    tree.write(filename, encoding='utf-8', xml_declaration=True)
+
+
 def query_count(funct_id):
     """
     Counts how many times the GitHub GraphQL API is called
@@ -470,6 +492,15 @@ if __name__ == '__main__':
 
     svg_overwrite('dark_mode.svg', age_data, commit_data, star_data, repo_data, contrib_data, follower_data, total_loc[:-1])
     svg_overwrite('light_mode.svg', age_data, commit_data, star_data, repo_data, contrib_data, follower_data, total_loc[:-1])
+
+    # profile views live in the header SVG; a failed fetch keeps yesterday's number
+    try:
+        views_data, views_time = perf_counter(views_getter, USER_NAME)
+        formatter('profile views', views_time)
+        hero_overwrite('assets/hero-dark.svg', views_data)
+        hero_overwrite('assets/hero-light.svg', views_data)
+    except Exception as error:
+        print('Skipped profile views:', error)
 
     # move cursor to override 'Calculation times:' with 'Total function time:' and the total function time, then move cursor back
     print('\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F',

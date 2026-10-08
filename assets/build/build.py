@@ -230,8 +230,17 @@ def hero(theme):
         s.text(mx, 428, v, "sans", 15.5, 600, fill="text")
         mx += 228
     s.add("</g>")
+    # profile-views pill, top-right corner; today.py rewrites #views_data daily
+    vw, vh = 214, 30
+    vx, vy = W - 26 - vw, 16
+    s.add(f'<g class="up d1"><rect x="{vx}" y="{vy}" width="{vw}" height="{vh}" rx="15" fill="{t["surface"]}" stroke="{t["line"]}"/>'
+          f'<path d="M{vx+14} {vy+15} q8 -9 16 0 q-8 9 -16 0z" fill="none" stroke="{t["accent"]}" stroke-width="1.5" stroke-linejoin="round"/>'
+          f'<circle cx="{vx+22}" cy="{vy+15}" r="2.4" fill="{t["accent"]}"/>')
+    s.text(vx + 40, vy + 19.5, "PROFILE VIEWS", "mono", 11, 500, fill="faint", ls=0.8)
+    s.text(vx + vw - 16, vy + 20, "—", "sans", 14.5, 600, fill="text", anchor="end", tid="views_data", extra="0123456789,.kKM")
+    s.add("</g>")
     # portrait card
-    px, py, pw, ph = 860, 58, 264, 330
+    px, py, pw, ph = 860, 74, 264, 318
     s.add(f'<g class="up d3"><g transform="rotate(2.2 {px+pw/2} {py+ph/2})">'
           f'<rect x="{px-10}" y="{py-10}" width="{pw+20}" height="{ph+56}" rx="16" fill="{t["surface"]}" stroke="{t["line"]}"/>'
           f'<clipPath id="pc"><rect x="{px}" y="{py}" width="{pw}" height="{ph}" rx="10"/></clipPath>')
