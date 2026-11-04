@@ -33,7 +33,7 @@ def card(key, repo, alt):
     return link(f"{GH}/{repo}", pic(f"card-{key}", alt, width="49%"))
 
 
-from layout import ACHIEVEMENTS, CERTS
+from layout import ACHIEVEMENTS, CERTS, HARVARD
 
 README = f"""<!--
   Profile README for SahajIVVIX-1.
@@ -98,7 +98,7 @@ My rule is simple: ship it, benchmark it, then make it smarter. I want the proje
 
 {section("recognition", "05 Recognition")}
 
-{pic("recognition", "Recognition. Achievements: " + "; ".join(f"{a}: {b}" for a, b in ACHIEVEMENTS) + ". Certifications: " + "; ".join(f"{n} ({i})" for _, items in CERTS for n, i in items).replace("&", "&amp;") + ".", width="100%")}
+{pic("recognition", "Recognition. Achievements: " + "; ".join(f"{a}: {b}" for a, b in ACHIEVEMENTS) + ". Certifications: " + "; ".join(f"{n} ({i})" for _, items in CERTS for n, i in items).replace("&", "&amp;") + ". Harvard ManageMentor badges: " + "; ".join(n for n, _ in HARVARD) + ".", width="100%")}
 
 {section("signals", "06 Signals")}
 

@@ -43,6 +43,15 @@ CERTS = [
     ("Cloud", [("Oracle Cloud and AI", "Oracle")]),
     ("Other", [("Data Structure & Algorithm With Python", "Udemy"), ("2,121-Word Book", "Guinness World Records")]),
 ]
+# Harvard ManageMentor badges (Harvard Business Publishing): (title, badge file in build/badges/)
+HARVARD = [
+    ("Leading with Generative AI", "leading-with-generative-ai"),
+    ("Strategic Thinking", "strategic-thinking"),
+    ("Strategy Planning and Execution", "strategy-planning-and-execution"),
+    ("Project Management", "project-management"),
+    ("Team Management", "team-management"),
+]
+HV_BADGE_W, HV_BADGE_H = 75, 96
 RC_W, RC_GAP, RC_PAD = 1200, 16, 22
 RC_COL = (RC_W - 4 * RC_GAP) / 5
 
@@ -85,5 +94,16 @@ def recognition_layout(measure):
         r, c = divmod(i, 5)
         L["tiles"].append(dict(x=c * (RC_COL + RC_GAP), y=rows_top + r * (th + 30), name=nl, issuer=iss, group=grp))
     L["tile_h"] = th
-    L["H"] = rows_top + 2 * th + 30 + 1
+    certs_bot = rows_top + 2 * th + 30
+    # Harvard ManageMentor: badge on the left, course title wrapped beside it
+    L["head3"] = certs_bot + 76
+    L["rule3"] = (measure("Harvard ManageMentor", "serif", 400, 30) + 52, L["head3"] - 10)
+    hv_top = L["head3"] + 36
+    text_w = RC_COL - 28 - HV_BADGE_W - 12  # 14px insets, 12px gap after the badge
+    L["badges"] = []
+    for i, (title, key) in enumerate(HARVARD):
+        L["badges"].append(dict(x=i * (RC_COL + RC_GAP), y=hv_top, key=key,
+                                name=wrap_words(title, text_w, lambda s: measure(s, "sans", 600, 15))))
+    L["badge_h"] = HV_BADGE_H + 36
+    L["H"] = hv_top + L["badge_h"] + 1
     return L

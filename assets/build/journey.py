@@ -25,9 +25,9 @@ _PX = {  # name: (x, y, w, h) in px at an 830px column, top of hero = y 53
     "rag-pipeline": (35, 1278, 830, 530), "card-openenv": (35, 1824, 407, 281),
     "card-dcgan": (35, 2126, 407, 281), "card-microplastic": (35, 2427, 830, 104),
     "section-toolkit": (35, 2633, 830, 58), "toolkit": (35, 2707, 830, 433),
-    "section-recognition": (35, 3190, 830, 58), "recognition": (35, 3264, 830, 503), "section-signals": (35, 3817, 830, 58),
-    "telemetry": (35, 3891, 830, 353), "insights": (35, 4260, 830, 526),
-    "footer": (35, 4835, 830, 173),
+    "section-recognition": (35, 3190, 830, 58), "recognition": (35, 3264, 830, 672), "section-signals": (35, 3986, 830, 58),
+    "telemetry": (35, 4060, 830, 353), "insights": (35, 4429, 830, 526),
+    "footer": (35, 5004, 830, 173),
 }
 VIEW = {"card-openenv": (584, 404), "card-dcgan": (584, 404)}  # others are 1200 wide
 # section rule lines: (start x, end x) at local y 48, from build.section()
@@ -259,6 +259,10 @@ def route():
     add("walk", "recognition", 0.5, y2 - 8, RIGHT)
     add("walk", "recognition", 14, y2, UP)
     letters("recognition", thin(tops(row(1), y2)), first="walk")
+    # back along the Harvard ManageMentor rule, then across the badge tiles
+    add("hop", "recognition", 1180, R["rule3"][1] - 0.5, UP)
+    add("walk", "recognition", R["rule3"][0] + 6, R["rule3"][1] - 0.5, UP)
+    letters("recognition", tops([b["x"] for b in R["badges"]], R["badges"][0]["y"]), first="hop")
     # ── Signals right to left: rule, then title; onto the telemetry console's left border ──
     add("fall", "section-signals", 1012 - 30, 48, UP)
     add("walk", "section-signals", 185 + 26, 48, UP)
@@ -312,8 +316,10 @@ def frames():
             t += dur
             out.append((t, nx, ny, nn, flip))
         else:
+            steps = 10
             if kind == "hop":  # a quick skip from one letter or tile to the next
-                kind, hop, dur = "leap", 7 + min(dist, 40) / 6, 0.2 + dist / 700
+                # low arc: 4 samples stay within ~1px of the parabola and keep the CSS small
+                kind, hop, dur, steps = "leap", 7 + min(dist, 40) / 6, 0.2 + dist / 700, 4
             else:
                 hop = 26 if kind == "leap" else 10
                 dur = 0.55 + dist / 900 if kind == "leap" else 0.4 + math.sqrt(max(dy, 1)) / 26
@@ -326,7 +332,6 @@ def frames():
             beat = 0.12 if dur > 0.4 else 0.03
             out.append((t + beat, x, y, n, flip))  # crouch beat before the jump
             t += beat
-            steps = 10
             for i in range(1, steps + 1):
                 u = i / steps
                 ease = u if kind == "leap" else u * u
@@ -455,6 +460,47 @@ PIECES, HITS = simulate()
 TRACKS = [track(p) for p in PIECES]
 
 
+def _decimate(tr, keep, loc, tol=0.6):
+    """Drop keyframes that linear interpolation between their neighbours already
+    reproduces (within `tol` local px and 1 degree). The route is densified and
+    sampled per beat, so most keyframes sit on straight, constant-speed runs;
+    shipping them made every SVG carry tens of KB of redundant CSS that the
+    browser has to parse and tick on first paint."""
+    if len(keep) < 3:
+        return keep
+    pts = []
+    for i in keep:
+        tt, x, y, ang, _ = tr[i]
+        lx, ly = loc(x, y)
+        pts.append((tt, lx, ly, ang))
+    # never drop the edges of a visible run: the mascot jumps while hidden
+    fixed = {0, len(keep) - 1}
+    for n in range(1, len(keep)):
+        if keep[n] != keep[n - 1] + 1:
+            fixed.update((n - 1, n))
+
+    def fits(a, b):
+        ta, xa, ya, ra = pts[a]
+        tb, xb, yb, rb = pts[b]
+        span = tb - ta
+        for m in range(a + 1, b):
+            tm, xm, ym, rm = pts[m]
+            u = 0.0 if span <= 1e-9 else (tm - ta) / span
+            if (abs(xa + (xb - xa) * u - xm) > tol or abs(ya + (yb - ya) * u - ym) > tol
+                    or abs(ra + (rb - ra) * u - rm) > 1.0):
+                return False
+        return True
+
+    out, a = [0], 0
+    while a < len(pts) - 1:
+        b = a + 1
+        while b + 1 < len(pts) and b not in fixed and fits(a, b + 1):
+            b += 1
+        out.append(b)
+        a = b
+    return [keep[n] for n in out]
+
+
 def _pct(t):
     return f"{100 * t / P:.3f}".rstrip("0").rstrip(".") + "%"
 
@@ -483,7 +529,7 @@ def attach(s, name):
         keep = [i for i in range(len(tr)) if flags[i] or (i and flags[i - 1]) or (i + 1 < len(tr) and flags[i + 1])]
         mv, vis, eye = [], [], []
         last_p = None
-        for i in keep:
+        for i in _decimate(tr, keep, loc):
             tt, x, y, ang, _ = tr[i]
             p = _pct(tt)
             if p == last_p:

@@ -13,7 +13,7 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 from PIL import Image
 import journey
-from layout import TOOLKIT, TK_W, TK_CHIP_H, toolkit_layout, ACHIEVEMENTS, CERTS, RC_COL, RC_PAD, recognition_layout
+from layout import TOOLKIT, TK_W, TK_CHIP_H, toolkit_layout, ACHIEVEMENTS, CERTS, HARVARD, HV_BADGE_W, HV_BADGE_H, RC_COL, RC_PAD, recognition_layout
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.dirname(HERE)  # assets/
@@ -616,7 +616,8 @@ def recognition(theme):
     W, H, th = 1200, L["H"], L["tile_h"]
     flat = [f"{n} ({i})" for _, items in CERTS for n, i in items]
     s = Svg(W, H, "Recognition. Achievements: " + "; ".join(f"{a}: {b}" for a, b in ACHIEVEMENTS)
-            + ". Certifications: " + "; ".join(flat), theme)
+            + ". Certifications: " + "; ".join(flat)
+            + ". Harvard ManageMentor: " + "; ".join(n for n, _ in HARVARD), theme)
     t = dict(s.t, **journey.EXTRA.get(s.t["bg"], {}))
     tone = {"AI / GenAI & agents": t["accent"], "ML / DL": t["blue"], "Cloud": t["olive"], "Other": t["gold"]}
     n_items = len(ACHIEVEMENTS) + len(L["tiles"])
@@ -676,7 +677,27 @@ def recognition(theme):
         s.add(f'<rect class="glow" style="animation-delay:{k * step:.1f}s" x="{x + .5:.1f}" y="{y + .5}" width="{w - 1:.1f}" '
               f'height="{th - 1}" rx="14" fill="none" stroke="{col}" stroke-width="1.6"/>')
         k += 1
+
+    heading(L["head3"], "Harvard ManageMentor", f"{len(L['badges']):02d}", L["rule3"])
+    bh = L["badge_h"]
+    for i, b in enumerate(L["badges"]):
+        x, y, w = b["x"], b["y"], RC_COL
+        s.add(f'<g class="rise" style="animation-delay:{0.9 + i * 0.05:.2f}s">'
+              f'<rect x="{x + .5:.1f}" y="{y + .5}" width="{w - 1:.1f}" height="{bh - 1}" rx="14" fill="{t["surface"]}" stroke="{t["line"]}"/>'
+              f'<image x="{x + 14:.1f}" y="{y + 18}" width="{HV_BADGE_W}" height="{HV_BADGE_H}" '
+              f'href="data:image/webp;base64,{badge_b64(b["key"])}"/>')
+        tx = x + 14 + HV_BADGE_W + 12
+        ty = y + bh / 2 - 11 * (len(b["name"]) - 1) + 2
+        s.text(tx, ty - 26, "HARVARD", "mono", 10.5, 500, fill="accent", ls=0.6)
+        for j, ln in enumerate(b["name"]):
+            s.text(tx, ty + 22 * j, ln, "sans", 15, 600, fill="text")
+        s.add("</g>")
     return s
+
+
+def badge_b64(key):
+    with open(os.path.join(HERE, "badges", f"{key}.webp"), "rb") as fh:
+        return base64.b64encode(fh.read()).decode()
 
 
 # ── 8. buttons + footer ─────────────────────────────────────────────────────
